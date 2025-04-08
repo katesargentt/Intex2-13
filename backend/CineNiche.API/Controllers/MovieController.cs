@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CineNiche.API.Controllers
 {
+    [EnableCors("AllowFrontend")]
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
