@@ -36,6 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Request Origin: " + context.Request.Headers["Origin"]);
+    await next();
+});
 
 app.UseCors("AllowFrontend");
 
