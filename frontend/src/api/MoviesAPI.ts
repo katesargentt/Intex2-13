@@ -6,7 +6,7 @@ interface FetchMoviesResponse {
 }
 
 // const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie";
-const API_URL = "https://localhost:5000/api/Movie"; // 👈 Use HTTP or HTTPS based on your backend
+const API_URL = 'https://localhost:5000/api/Movie'; // 👈 Use HTTP or HTTPS based on your backend
 
 // ✅ Fetch movies with optional filtering by category
 export const fetchMovies = async (
@@ -93,7 +93,7 @@ export const updateMovie = async (
 // ✅ Delete a movie
 export const deleteMovie = async (showId: string): Promise<void> => {
   try {
-    const response = await fetch(`${API_URL}/Delete/${showId}`, {
+    const response = await fetch(`${API_URL}/DeleteMovie/${showId}`, {
       method: 'DELETE',
     });
 
