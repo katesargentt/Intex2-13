@@ -18,10 +18,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
-                   .AllowCredentials()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            policy.WithOrigins(
+                    "http://localhost:3000", 
+                    "https://wonderful-ocean-0c0fc031e.6.azurestaticapps.net"
+                )
+                .AllowCredentials()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
         });
 });
 
