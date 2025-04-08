@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SFOraLY0Vgc=",
+  "dgSpecHash": "Pchaz+hCP1A=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Trey\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
+  "projectFilePath": "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Trey\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Trey\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

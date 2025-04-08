@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CineNiche.API.Controllers
 {
+    [EnableCors("AllowFrontend")]
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
@@ -125,10 +126,23 @@ namespace CineNiche.API.Controllers
         [HttpPost("AddMovie")]
         public IActionResult AddMovie([FromBody] MoviesTitle newMovie)
         {
+            var lastNumericId = _movieContext.MoviesTitles
+                .AsEnumerable() // move query to in-memory
+                .Where(m => m.ShowId.StartsWith("s"))
+                .Select(m => m.ShowId.Substring(1))
+                .Where(id => int.TryParse(id, out _))
+                .Select(int.Parse)
+                .DefaultIfEmpty(0)
+                .Max();
+
+            newMovie.ShowId = $"s{lastNumericId + 1}";
+
             _movieContext.MoviesTitles.Add(newMovie);
             _movieContext.SaveChanges();
+
             return Ok(newMovie);
         }
+
 
         [HttpPut("UpdateMovie/{showId}")]
         public IActionResult UpdateMovie(string showId, [FromBody] MoviesTitle updatedMovie)

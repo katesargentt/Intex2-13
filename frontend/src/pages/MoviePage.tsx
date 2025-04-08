@@ -7,7 +7,10 @@ interface Movie {
   image: string;
 }
 
-const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api";
+const API_URL =
+  'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api';
+const IMAGE_URL =
+  'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
 const endpoint = `${API_URL}/recommend/user/3`;
 
@@ -34,9 +37,7 @@ const MoviePage: React.FC = () => {
       <div
         className="hero-banner"
         style={{
-          backgroundImage: `url(/images/movies/${encodeURIComponent(
-            'Movie Posters'
-          )}/${featuredMovie.image})`,
+          backgroundImage: `url(${IMAGE_URL}/${encodeURIComponent(featuredMovie.image)})`,
         }}
       >
         <div className="hero-content">
@@ -55,9 +56,7 @@ const MoviePage: React.FC = () => {
         {recommendedMovies.map((movie) => (
           <div key={movie.show_id} className="movie-card">
             <img
-              src={`/images/movies/${encodeURIComponent(
-                'Movie Posters'
-              )}/${movie.image}`}
+              src={`${IMAGE_URL}/${encodeURIComponent(movie.image)}`}
               alt={movie.title}
               className="movie-poster"
               onError={(e) => {
@@ -101,7 +100,7 @@ const MoviePage: React.FC = () => {
         ].map((movie) => (
           <div key={movie.title} className="movie-card">
             <img
-              src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+              src={`${IMAGE_URL}/${encodeURIComponent(movie.image)}`}
               alt={movie.title}
               className="movie-poster"
               onError={(e) => {
@@ -141,7 +140,7 @@ const MoviePage: React.FC = () => {
         ].map((movie) => (
           <div key={movie.title} className="movie-card">
             <img
-              src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+              src={`${IMAGE_URL}/${encodeURIComponent(movie.image)}`}
               alt={movie.title}
               className="movie-poster"
               onError={(e) => {
@@ -190,7 +189,7 @@ const MoviePage: React.FC = () => {
         ].map((movie) => (
           <div key={movie.title} className="movie-card">
             <img
-              src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+              src={`${IMAGE_URL}/${encodeURIComponent(movie.image)}`}
               alt={movie.title}
               className="movie-poster"
               onError={(e) => {

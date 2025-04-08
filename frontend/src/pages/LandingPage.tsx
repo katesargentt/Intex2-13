@@ -58,32 +58,50 @@ function LandingPage() {
             style={{ backgroundImage: "url('/images/American Woman.jpg')" }}
           ></div>
         </div>
+        <CookieConsent
+          location="bottom"
+          buttonText="Got it"
+          cookieName="cineNicheCookieConsent"
+          disableStyles={true}
+          style={{
+            background: '#ccd4ff',
+            color: '#0f0f2d',
+            fontSize: '0.95rem',
+            padding: '1rem 2rem',
+            borderRadius: '16px',
+            width: '80%', // 👈 wider banner
+            maxWidth: '600px', // 👈 still responsive
+            margin: '0 auto 20px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+            textAlign: 'left', // 👈 aligns text left
+            display: 'flex', // 👈 side-by-side layout
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '16px',
+            position: 'fixed',
+            left: '50%',
+            bottom: '50px',
+            transform: 'translateX(-50%)',
+            zIndex: 9999,
+          }}
+          buttonStyle={{
+            background: '#5985DF',
+            color: '#fff',
+            fontWeight: '500',
+            fontSize: '0.95rem',
+            borderRadius: '8px',
+            padding: '10px 20px',
+            border: 'none',
+            cursor: 'pointer',
+            whiteSpace: 'nowrap', // 👈 prevents wrapping
+          }}
+          expires={365}
+        >
+          This website uses cookies to enhance the user experience.
+        </CookieConsent>
+        <div style={{ height: '150px' }}></div>
+        <Footer />
       </div>
-      <CookieConsent
-        location="bottom"
-        buttonText="Got it"
-        cookieName="cineNicheCookieConsent"
-        style={{
-          background: '#101026', // match your page background
-          color: '#cfcfe4', // subtle text color
-          fontSize: '1rem',
-          padding: '1rem 2rem',
-        }}
-        buttonStyle={{
-          background: '#7c9aff', // soft blue (match your buttons)
-          color: '#fff',
-          fontWeight: '500',
-          fontSize: '1rem',
-          borderRadius: '8px',
-          padding: '10px 20px',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-        expires={365}
-      >
-        This website uses cookies to enhance the user experience.
-      </CookieConsent>
-      <Footer />
     </div>
   );
 }

@@ -71,39 +71,56 @@ const AdminPage = () => {
           <h2 className="text-center mb-4">🎬 Admin Movie Manager</h2>
 
           {!showForm && (
-        <button
-          className="btn btn-success mb-3"
-          onClick={() => setShowForm(true)}
-        >
-          Add Movie
-        </button>
-      )}
-      {showForm && (
-        <NewMovieForm
-          onSuccess={() => {
-            setShowForm(false);
-            fetchMovies(pageSize, pageNum, []).then((data) => {
-              if (data) {
-                setMovies(data.movies);
-              }
-            });
-          }}
-          onCancel={() => setShowForm(false)}
-        />
-      )}
+            <button
+              className="btn btn-success mb-3"
+              onClick={() => setShowForm(true)}
+            >
+              Add Movie
+            </button>
+          )}
+          {showForm && (
+            <div className="form-overlay">
+              <div className="form-wrapper">
+                <NewMovieForm
+                  onSuccess={() => {
+                    setShowForm(false);
+                    fetchMovies(pageSize, pageNum, []).then((data) => {
+                      if (data && Array.isArray(data.movies)) {
+                        const moviesWithCategories = data.movies.map((m) => ({
+                          ...m,
+                          categories: getCategories(m),
+                        }));
+                        setMovies(moviesWithCategories);
+                      }
+                    });
+                  }}
+                  onCancel={() => setShowForm(false)}
+                />
+              </div>
+            </div>
+          )}
+
           {editingMovie && (
-            <EditMovieForm
-              movie={editingMovie}
-              onSuccess={() => {
-                setEditingMovie(null);
-                fetchMovies(pageSize, pageNum, []).then((data) => {
-                  if (data) {
-                    setMovies(data.movies);
-                  }
-                });
-              }}
-              onCancel={() => setEditingMovie(null)} // optional, if you support cancel
-            />
+            <div className="form-overlay">
+              <div className="edit-form-wrapper">
+                <EditMovieForm
+                  movie={editingMovie}
+                  onSuccess={() => {
+                    setEditingMovie(null);
+                    fetchMovies(pageSize, pageNum, []).then((data) => {
+                      if (data && Array.isArray(data.movies)) {
+                        const moviesWithCategories = data.movies.map((m) => ({
+                          ...m,
+                          categories: getCategories(m),
+                        }));
+                        setMovies(moviesWithCategories);
+                      }
+                    });
+                  }}
+                  onCancel={() => setEditingMovie(null)} // optional, if you support cancel
+                />
+              </div>
+            </div>
           )}
           <div className="table-responsive overflow-auto">
             <table className="table table-bordered table-striped shadow-sm">
@@ -136,7 +153,7 @@ const AdminPage = () => {
                     <td>{m.rating}</td>
                     <td>{m.duration}</td>
                     <td className="description-cell">{m.description}</td>
-                    <td>{m.categories.join(', ')}</td>
+                    <td>{(m.categories ?? []).join(', ')}</td>
                     <td>
                       <div className="d-flex flex-column gap-1">
                         <button
@@ -171,6 +188,7 @@ const AdminPage = () => {
               }}
             />
           </div>
+          <br/>
         </div>
       </div>
     </>
