@@ -23,8 +23,8 @@ builder.Services.AddCors(options =>
                     "https://wonderful-ocean-0c0fc031e.6.azurestaticapps.net"
                 )
                 .AllowCredentials()
-                .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyMethod();
+                //.AllowAnyHeader()
         });
 });
 
