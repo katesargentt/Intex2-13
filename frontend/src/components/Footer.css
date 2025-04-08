@@ -1,5 +1,5 @@
 .cine-footer {
-  width: 100%;
+  width: 100vw; /* full viewport width */
   padding: 40px 0; /* ⬆️ taller footer */
   background: linear-gradient(to right, #1a1a1a, #3a3a3a, #1a1a1a); /* 🎭 deeper, dramatic gradient */
   display: flex;
