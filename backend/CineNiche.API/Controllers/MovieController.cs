@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using CineNiche.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
@@ -9,6 +10,7 @@ namespace CineNiche.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MovieController : ControllerBase
     {
         private MoviesContext _movieContext;

@@ -5,7 +5,8 @@ interface FetchMoviesResponse {
   totalNumMovies: number;
 }
 
-const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie"; // 👈 Use HTTP or HTTPS based on your backend
+const API_URL =
+  'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie'; // 👈 Use HTTP or HTTPS based on your backend
 
 // ✅ Fetch movies with optional filtering by category
 export const fetchMovies = async (
@@ -19,7 +20,10 @@ export const fetchMovies = async (
       .join('&');
 
     const response = await fetch(
-      `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`
+      `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`,
+      {
+        credentials: 'include', // Include credentials for CORS requests
+      }
     );
 
     if (!response.ok) {
@@ -45,6 +49,7 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
   try {
     const response = await fetch(`${API_URL}/AddMovie`, {
       method: 'POST',
+      credentials: 'include', // Include credentials for CORS requests
       headers: {
         'Content-Type': 'application/json',
       },
@@ -72,6 +77,7 @@ export const updateMovie = async (
   try {
     const response = await fetch(`${API_URL}/UpdateMovie/${showId}`, {
       method: 'PUT',
+      credentials: 'include', // Include credentials for CORS requests
       headers: {
         'Content-Type': 'application/json',
       },
@@ -94,6 +100,7 @@ export const deleteMovie = async (showId: string): Promise<void> => {
   try {
     const response = await fetch(`${API_URL}/Delete/${showId}`, {
       method: 'DELETE',
+      credentials: 'include', // Include credentials for CORS requests
     });
 
     if (!response.ok) {

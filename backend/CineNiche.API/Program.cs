@@ -29,8 +29,12 @@ builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, CustomUser
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+// builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -52,6 +56,8 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
+
+builder.Services.AddSingleton<IEmailSender<IdentityUser>, NoOpEmailSender<IdentityUser>>();
 
 var app = builder.Build();
 
