@@ -18,10 +18,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
-                   .AllowCredentials()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            policy.WithOrigins(
+                    "http://localhost:3000", 
+                    "https://wonderful-ocean-0c0fc031e.6.azurestaticapps.net"
+                )
+                .AllowCredentials()
+                .AllowAnyMethod();
+                //.AllowAnyHeader()
         });
 });
 
@@ -33,6 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Request Origin: " + context.Request.Headers["Origin"]);
+    await next();
+});
 
 app.UseCors("AllowFrontend");
 
