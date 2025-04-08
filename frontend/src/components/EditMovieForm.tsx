@@ -13,7 +13,9 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
   const [formData, setFormData] = useState<Movie>({ ...movie });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -51,14 +53,18 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
             <label className="form-label">
               <strong>Type</strong>
             </label>
-            <input
-              type="text"
+            <select
               name="type"
-              className="form-control form-control-sm"
+              className="form-select form-select-sm"
               value={formData.type}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Type</option>
+              <option value="TV Show">TV Show</option>
+              <option value="Movie">Movie</option>
+            </select>
           </div>
+
           <div className="mb-2">
             <label className="form-label">
               <strong>Director</strong>
@@ -115,14 +121,29 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
             <label className="form-label">
               <strong>Rating</strong>
             </label>
-            <input
-              type="text"
+            <select
               name="rating"
-              className="form-control form-control-sm"
+              className="form-select form-select-sm"
               value={formData.rating}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Rating</option>
+              <option value="PG-13">PG-13</option>
+              <option value="TV-MA">TV-MA</option>
+              <option value="PG">PG</option>
+              <option value="TV-14">TV-14</option>
+              <option value="TV-PG">TV-PG</option>
+              <option value="TV-Y">TV-Y</option>
+              <option value="TV-Y7">TV-Y7</option>
+              <option value="R">R</option>
+              <option value="TV-G">TV-G</option>
+              <option value="G">G</option>
+              <option value="NR">NR</option>
+              <option value="TV-Y7-FV">TV-Y7-FV</option>
+              <option value="UR">UR</option>
+            </select>
           </div>
+
           <div className="mb-2">
             <label className="form-label">
               <strong>Duration</strong>

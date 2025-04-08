@@ -27,7 +27,7 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
   const [formData, setFormData] = useState<Movie>(initialFormState);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData({
@@ -43,17 +43,22 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
     onSuccess();
   };
 
+  const genreEntries = Object.entries(CATEGORY_MAP);
+  const mid = Math.ceil(genreEntries.length / 2);
+  const leftGenres = genreEntries.slice(0, mid);
+  const rightGenres = genreEntries.slice(mid);
+
   return (
     <form
       onSubmit={handleSubmit}
       className="card p-3 mb-4 shadow-sm"
-      style={{ maxWidth: '800px', fontSize: '0.9rem' }}
+      style={{ maxWidth: '1200px', fontSize: '0.9rem' }}
     >
       <h5 className="mb-3">🎬 Add New Movie</h5>
 
       <div className="row g-3">
-        {/* Left Column */}
-        <div className="col-md-6">
+        {/* Column 1 */}
+        <div className="col-md-4">
           <div className="mb-2">
             <label className="form-label">
               <strong>Title</strong>
@@ -70,14 +75,18 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
             <label className="form-label">
               <strong>Type</strong>
             </label>
-            <input
-              type="text"
+            <select
               name="type"
-              className="form-control form-control-sm"
+              className="form-select form-select-sm"
               value={formData.type}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Type</option>
+              <option value="TV Show">TV Show</option>
+              <option value="Movie">Movie</option>
+            </select>
           </div>
+
           <div className="mb-2">
             <label className="form-label">
               <strong>Director</strong>
@@ -116,8 +125,8 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
           </div>
         </div>
 
-        {/* Right Column */}
-        <div className="col-md-6">
+        {/* Column 2 */}
+        <div className="col-md-4">
           <div className="mb-2">
             <label className="form-label">
               <strong>Release Year</strong>
@@ -134,14 +143,29 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
             <label className="form-label">
               <strong>Rating</strong>
             </label>
-            <input
-              type="text"
+            <select
               name="rating"
-              className="form-control form-control-sm"
+              className="form-select form-select-sm"
               value={formData.rating}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Rating</option>
+              <option value="PG-13">PG-13</option>
+              <option value="TV-MA">TV-MA</option>
+              <option value="PG">PG</option>
+              <option value="TV-14">TV-14</option>
+              <option value="TV-PG">TV-PG</option>
+              <option value="TV-Y">TV-Y</option>
+              <option value="TV-Y7">TV-Y7</option>
+              <option value="R">R</option>
+              <option value="TV-G">TV-G</option>
+              <option value="G">G</option>
+              <option value="NR">NR</option>
+              <option value="TV-Y7-FV">TV-Y7-FV</option>
+              <option value="UR">UR</option>
+            </select>
           </div>
+
           <div className="mb-2">
             <label className="form-label">
               <strong>Duration</strong>
@@ -167,50 +191,70 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
             />
           </div>
         </div>
-      </div>
 
-      {/* Genre Checkboxes */}
-      <div className="mt-4">
-        <label className="form-label mb-2">
-          <strong>Genres</strong>
-        </label>
-        <div className="row">
-          {Object.entries(CATEGORY_MAP).map(([key, label]) => (
-            <div key={key} className="col-md-4">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id={key}
-                  checked={formData[key as keyof Movie] === 1}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [key]: e.target.checked ? 1 : 0,
-                    })
-                  }
-                />
-                <label className="form-check-label" htmlFor={key}>
-                  {label}
-                </label>
+        {/* Genres Column */}
+        <div className="col-md-4">
+          <div className="mb-2 text-center">
+            <strong>Genres</strong>
+          </div>
+          <div className="row">
+            <div className="col-6">
+              {leftGenres.map(([key, label]) => (
+                <div key={key} className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={key}
+                    checked={formData[key as keyof Movie] === 1}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [key]: e.target.checked ? 1 : 0,
+                      })
+                    }
+                  />
+                  <label className="form-check-label" htmlFor={key}>
+                    {label}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <div className="col-5">
+              {rightGenres.map(([key, label]) => (
+                <div key={key} className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id={key}
+                    checked={formData[key as keyof Movie] === 1}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [key]: e.target.checked ? 1 : 0,
+                      })
+                    }
+                  />
+                  <label className="form-check-label" htmlFor={key}>
+                    {label}
+                  </label>
+                </div>
+              ))}
+              {/* Action Buttons */}
+              <div className="d-flex justify-content-start gap-2 mt-4">
+                <button type="submit" className="btn btn-sm btn-primary">
+                  Save
+                </button>
+                <button
+                  type="button"
+                  onClick={onCancel}
+                  className="btn btn-sm btn-secondary"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="d-flex justify-content-end gap-2 mt-4">
-        <button type="submit" className="btn btn-sm btn-primary">
-          Save
-        </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="btn btn-sm btn-secondary"
-        >
-          Cancel
-        </button>
       </div>
     </form>
   );

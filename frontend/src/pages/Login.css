@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Stardos+Stencil&display=swap');
+
+.login-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.login-title {
+  font-family: 'Stardos Stencil', cursive;
+  font-size: 80px;
+  font-weight: 700;
+  color: #0f0f2d;
+  margin-bottom: 30px;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+}
+
+.login-box {
+  background-color: #0f0f2d;
+  padding: 50px 40px; /* ⬆️ larger padding */
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 480px; /* ⬆️ slightly wider */
+  color: #ccd4ff;
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-bottom: 24px;
+  font-size: 28px;
+  color: #ccd4ff;
+}
+
+.login-box label {
+  display: block;
+  text-align: left;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 6px;
+  background-color: #fff;
+  color: #0f0f2d;
+  font-size: 1rem;
+}
+
+.login-box input::placeholder {
+  color: #999;
+}
+
+.login-box button {
+  margin-top: 24px;
+  background-color: #5985df;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.login-box button:hover {
+  background-color: #406ac7;
+}
+
+.create-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-title {
+  font-family: 'Stardos Stencil', cursive;
+  font-size: 64px;
+  font-weight: 700;
+  color: #0f0f2d;
+  margin-bottom: 30px;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+}
+
+.create-form {
+  background-color: #0f0f2d;
+  color: #ccd4ff;
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.create-form h2 {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.create-form label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #ccd4ff;
+    gap: 6px;
+    width: 100%; /* 💡 ensures full width container */
+  }
+  
+  .create-form input,
+  .create-form select {
+    width: 100%; /* ✅ force inputs/selects to span full width */
+    box-sizing: border-box; /* ✅ include padding in width */
+  }
+
+.create-form input,
+.create-form select {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #0f0f2d;
+  background-color: #fff;
+}
+
+.create-form input::placeholder {
+  color: #999;
+}
+
+.create-form button {
+  margin-top: 20px;
+  background-color: #5985df;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.create-form button:hover {
+  background-color: #406ac7;
+}
+
