@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7w6IsGuszkI=",
+  "dgSpecHash": "Pchaz+hCP1A=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\CineNiche.API.csproj",
+  "projectFilePath": "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ainsl\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\ainsl\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
