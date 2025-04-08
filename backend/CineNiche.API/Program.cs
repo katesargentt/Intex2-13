@@ -51,12 +51,12 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins(
-                    "http://localhost:3000", 
+                    "http://localhost:3000",
                     "https://wonderful-ocean-0c0fc031e.6.azurestaticapps.net"
                 )
                 .AllowCredentials()
-                .AllowAnyMethod();
-                //.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
         });
 });
 

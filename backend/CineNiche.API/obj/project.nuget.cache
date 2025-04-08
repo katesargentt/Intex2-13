@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7w6IsGuszkI=",
+  "dgSpecHash": "SFOraLY0Vgc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\CineNiche.API.csproj",
+  "projectFilePath": "C:\\Users\\Trey\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Trey\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Trey\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -151,12 +151,5 @@
     "C:\\Users\\Trey\\.nuget\\packages\\system.threading.tasks.dataflow\\7.0.0\\system.threading.tasks.dataflow.7.0.0.nupkg.sha512",
     "C:\\Users\\Trey\\.nuget\\packages\\system.windows.extensions\\7.0.0\\system.windows.extensions.7.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\Trey\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }
