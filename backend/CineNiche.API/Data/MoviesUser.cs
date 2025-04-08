@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CineNiche.API.Data;
 
 public partial class MoviesUser
 {
-    public int? UserId { get; set; }
+    [Key]
+    public int UserId { get; set; }
 
     public string? Name { get; set; }
 
@@ -38,4 +40,5 @@ public partial class MoviesUser
     public string? State { get; set; }
 
     public int? Zip { get; set; }
+    public ICollection<MoviesRating>? Ratings { get; set; }
 }

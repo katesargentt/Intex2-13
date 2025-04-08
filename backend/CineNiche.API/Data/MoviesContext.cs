@@ -27,79 +27,110 @@ public partial class MoviesContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<MoviesRating>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToTable("movies_ratings");
-
-            entity.Property(e => e.Rating).HasColumnName("rating");
-            entity.Property(e => e.ShowId).HasColumnName("show_id");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-        });
-
+        // 🎬 MoviesTitle
         modelBuilder.Entity<MoviesTitle>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("movies_titles");
+            entity.ToTable("movies_titles");
 
-            entity.Property(e => e.AnimeSeriesInternationalTvShows).HasColumnName("Anime Series International TV Shows");
-            entity.Property(e => e.BritishTvShowsDocuseriesInternationalTvShows).HasColumnName("British TV Shows Docuseries International TV Shows");
-            entity.Property(e => e.Cast).HasColumnName("cast");
-            entity.Property(e => e.ComediesDramasInternationalMovies).HasColumnName("Comedies Dramas International Movies");
-            entity.Property(e => e.ComediesInternationalMovies).HasColumnName("Comedies International Movies");
-            entity.Property(e => e.ComediesRomanticMovies).HasColumnName("Comedies Romantic Movies");
-            entity.Property(e => e.Country).HasColumnName("country");
-            entity.Property(e => e.CrimeTvShowsDocuseries).HasColumnName("Crime TV Shows Docuseries");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.Director).HasColumnName("director");
-            entity.Property(e => e.DocumentariesInternationalMovies).HasColumnName("Documentaries International Movies");
-            entity.Property(e => e.DramasInternationalMovies).HasColumnName("Dramas International Movies");
-            entity.Property(e => e.DramasRomanticMovies).HasColumnName("Dramas Romantic Movies");
-            entity.Property(e => e.Duration).HasColumnName("duration");
-            entity.Property(e => e.FamilyMovies).HasColumnName("Family Movies");
-            entity.Property(e => e.HorrorMovies).HasColumnName("Horror Movies");
-            entity.Property(e => e.InternationalMoviesThrillers).HasColumnName("International Movies Thrillers");
-            entity.Property(e => e.InternationalTvShowsRomanticTvShowsTvDramas).HasColumnName("International TV Shows Romantic TV Shows TV Dramas");
-            entity.Property(e => e.KidsTv).HasColumnName("Kids' TV");
-            entity.Property(e => e.LanguageTvShows).HasColumnName("Language TV Shows");
-            entity.Property(e => e.NatureTv).HasColumnName("Nature TV");
-            entity.Property(e => e.Rating).HasColumnName("rating");
-            entity.Property(e => e.RealityTv).HasColumnName("Reality TV");
-            entity.Property(e => e.ReleaseYear).HasColumnName("release_year");
-            entity.Property(e => e.ShowId).HasColumnName("show_id");
-            entity.Property(e => e.TalkShowsTvComedies).HasColumnName("Talk Shows TV Comedies");
-            entity.Property(e => e.Title).HasColumnName("title");
-            entity.Property(e => e.TvAction).HasColumnName("TV Action");
-            entity.Property(e => e.TvComedies).HasColumnName("TV Comedies");
-            entity.Property(e => e.TvDramas).HasColumnName("TV Dramas");
-            entity.Property(e => e.Type).HasColumnName("type");
+            entity.HasKey(e => e.ShowId);
+
+            entity.Property(e => e.ShowId).HasColumnName("ShowId");
+
+            entity.Property(e => e.Title).HasColumnName("Title");
+            entity.Property(e => e.Type).HasColumnName("Type");
+            entity.Property(e => e.Director).HasColumnName("Director");
+            entity.Property(e => e.Cast).HasColumnName("Cast");
+            entity.Property(e => e.Country).HasColumnName("Country");
+            entity.Property(e => e.ReleaseYear).HasColumnName("ReleaseYear");
+            entity.Property(e => e.Rating).HasColumnName("Rating");
+            entity.Property(e => e.Duration).HasColumnName("Duration");
+            entity.Property(e => e.Description).HasColumnName("Description");
+
+            entity.Property(e => e.Action).HasColumnName("Action");
+            entity.Property(e => e.Adventure).HasColumnName("Adventure");
+            entity.Property(e => e.AnimeSeriesInternationalTvShows).HasColumnName("AnimeSeriesInternationalTvShows");
+            entity.Property(e => e.BritishTvShowsDocuseriesInternationalTvShows).HasColumnName("BritishTvShowsDocuseriesInternationalTvShows");
+            entity.Property(e => e.Children).HasColumnName("Children");
+            entity.Property(e => e.Comedies).HasColumnName("Comedies");
+            entity.Property(e => e.ComediesDramasInternationalMovies).HasColumnName("ComediesDramasInternationalMovies");
+            entity.Property(e => e.ComediesInternationalMovies).HasColumnName("ComediesInternationalMovies");
+            entity.Property(e => e.ComediesRomanticMovies).HasColumnName("ComediesRomanticMovies");
+            entity.Property(e => e.CrimeTvShowsDocuseries).HasColumnName("CrimeTvShowsDocuseries");
+            entity.Property(e => e.Documentaries).HasColumnName("Documentaries");
+            entity.Property(e => e.DocumentariesInternationalMovies).HasColumnName("DocumentariesInternationalMovies");
+            entity.Property(e => e.Docuseries).HasColumnName("Docuseries");
+            entity.Property(e => e.Dramas).HasColumnName("Dramas");
+            entity.Property(e => e.DramasInternationalMovies).HasColumnName("DramasInternationalMovies");
+            entity.Property(e => e.DramasRomanticMovies).HasColumnName("DramasRomanticMovies");
+            entity.Property(e => e.FamilyMovies).HasColumnName("FamilyMovies");
+            entity.Property(e => e.Fantasy).HasColumnName("Fantasy");
+            entity.Property(e => e.HorrorMovies).HasColumnName("HorrorMovies");
+            entity.Property(e => e.InternationalMoviesThrillers).HasColumnName("InternationalMoviesThrillers");
+            entity.Property(e => e.InternationalTvShowsRomanticTvShowsTvDramas).HasColumnName("InternationalTvShowsRomanticTvShowsTvDramas");
+            entity.Property(e => e.KidsTv).HasColumnName("KidsTv");
+            entity.Property(e => e.LanguageTvShows).HasColumnName("LanguageTvShows");
+            entity.Property(e => e.Musicals).HasColumnName("Musicals");
+            entity.Property(e => e.NatureTv).HasColumnName("NatureTv");
+            entity.Property(e => e.RealityTv).HasColumnName("RealityTv");
+            entity.Property(e => e.Spirituality).HasColumnName("Spirituality");
+            entity.Property(e => e.TvAction).HasColumnName("TvAction");
+            entity.Property(e => e.TvComedies).HasColumnName("TvComedies");
+            entity.Property(e => e.TvDramas).HasColumnName("TvDramas");
+            entity.Property(e => e.TalkShowsTvComedies).HasColumnName("TalkShowsTvComedies");
+            entity.Property(e => e.Thrillers).HasColumnName("Thrillers");
+
+            entity.HasMany(e => e.Ratings)
+                  .WithOne(r => r.MoviesTitle)
+                  .HasForeignKey(r => r.ShowId);
         });
 
+        // 👤 MoviesUser
         modelBuilder.Entity<MoviesUser>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("movies_users");
+            entity.ToTable("movies_users");
 
-            entity.Property(e => e.Age).HasColumnName("age");
-            entity.Property(e => e.AmazonPrime).HasColumnName("Amazon Prime");
-            entity.Property(e => e.AppleTv).HasColumnName("Apple TV+");
-            entity.Property(e => e.City).HasColumnName("city");
-            entity.Property(e => e.Disney).HasColumnName("Disney+");
-            entity.Property(e => e.Email).HasColumnName("email");
-            entity.Property(e => e.Gender).HasColumnName("gender");
-            entity.Property(e => e.Name).HasColumnName("name");
-            entity.Property(e => e.Paramount).HasColumnName("Paramount+");
-            entity.Property(e => e.Phone).HasColumnName("phone");
-            entity.Property(e => e.State).HasColumnName("state");
-            entity.Property(e => e.UserId).HasColumnName("user_id");
-            entity.Property(e => e.Zip).HasColumnName("zip");
+            entity.HasKey(e => e.UserId);
+
+            entity.Property(e => e.UserId).HasColumnName("UserId");
+            entity.Property(e => e.Name).HasColumnName("Name");
+            entity.Property(e => e.Phone).HasColumnName("Phone");
+            entity.Property(e => e.Email).HasColumnName("Email");
+            entity.Property(e => e.Age).HasColumnName("Age");
+            entity.Property(e => e.Gender).HasColumnName("Gender");
+            entity.Property(e => e.Netflix).HasColumnName("Netflix");
+            entity.Property(e => e.AmazonPrime).HasColumnName("AmazonPrime");
+            entity.Property(e => e.Disney).HasColumnName("Disney");
+            entity.Property(e => e.Paramount).HasColumnName("Paramount");
+            entity.Property(e => e.Max).HasColumnName("Max");
+            entity.Property(e => e.Hulu).HasColumnName("Hulu");
+            entity.Property(e => e.AppleTv).HasColumnName("AppleTV");
+            entity.Property(e => e.Peacock).HasColumnName("Peacock");
+            entity.Property(e => e.City).HasColumnName("City");
+            entity.Property(e => e.State).HasColumnName("State");
+            entity.Property(e => e.Zip).HasColumnName("Zip");
+
+            entity.HasMany(u => u.Ratings)
+                  .WithOne(r => r.MoviesUser)
+                  .HasForeignKey(r => r.UserId);
+        });
+
+        // ⭐ MoviesRating
+        modelBuilder.Entity<MoviesRating>(entity =>
+        {
+            entity.ToTable("movies_ratings");
+
+            entity.HasKey(e => new { e.UserId, e.ShowId });
+
+            entity.Property(e => e.UserId).HasColumnName("UserId");
+            entity.Property(e => e.ShowId).HasColumnName("ShowId");
+            entity.Property(e => e.Rating).HasColumnName("Rating");
+
+            // Foreign keys are configured in MoviesUser and MoviesTitle above
         });
 
         OnModelCreatingPartial(modelBuilder);
     }
+
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
