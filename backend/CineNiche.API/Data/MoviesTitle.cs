@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CineNiche.API.Data;
 
 public partial class MoviesTitle
 {
-    public string? ShowId { get; set; }
+    [Key]
+    public string ShowId { get; set; } = default!;
 
     public string? Type { get; set; }
 
@@ -88,4 +90,6 @@ public partial class MoviesTitle
     public int? TalkShowsTvComedies { get; set; }
 
     public int? Thrillers { get; set; }
+
+    public ICollection<MoviesRating>? Ratings { get; set; }
 }
