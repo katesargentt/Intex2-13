@@ -2011,9 +2011,7 @@
             "related": ".pdb;.xml"
           }
         },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        "frameworkReferences": ["Microsoft.AspNetCore.App"]
       },
       "Swashbuckle.AspNetCore.SwaggerGen/6.6.2": {
         "type": "package",
@@ -2043,9 +2041,7 @@
             "related": ".pdb;.xml"
           }
         },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
+        "frameworkReferences": ["Microsoft.AspNetCore.App"]
       },
       "System.CodeDom/5.0.0": {
         "type": "package",
@@ -6699,11 +6695,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Trey\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
+      "projectUniqueName": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\CineNiche.API.csproj",
       "projectName": "CineNiche.API",
-      "projectPath": "C:\\Users\\Trey\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
-      "packagesPath": "C:\\Users\\Trey\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Trey\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\obj\\",
+      "projectPath": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\CineNiche.API.csproj",
+      "packagesPath": "C:\\Users\\ainsl\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -6713,9 +6709,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
-      "originalTargetFrameworks": [
-        "net8.0"
-      ],
+      "originalTargetFrameworks": ["net8.0"],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
@@ -6727,9 +6721,7 @@
         }
       },
       "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
+        "warnAsError": ["NU1605"]
       },
       "restoreAuditProperties": {
         "enableAudit": "true",
