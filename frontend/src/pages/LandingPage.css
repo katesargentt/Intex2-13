@@ -1,24 +1,23 @@
 /* Landing Page Styles */
 @import url('https://fonts.googleapis.com/css2?family=Stardos+Stencil&display=swap');
 
-
-/* * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
-} */
-
-
-/* html, body {
-  width: 100%;
-  height: 100%;
-  background: #0f0f2d;
-  overflow-x: hidden;
-  font-family: 'Stardos Stencil', cursive;
+.landing-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0f0f2d, #6e6e6e); /* navy → lighter gray */
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-} */
+  justify-content: center;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+}
+
 
 
 body {
