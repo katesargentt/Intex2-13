@@ -101,6 +101,7 @@ function LandingPage() {
         >
           This website uses cookies to enhance the user experience.
         </CookieConsent>
+        <div style={{ height: '150px' }}></div>
         <Footer />
       </div>
     </div>

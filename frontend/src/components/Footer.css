@@ -1,0 +1,30 @@
+.cine-footer {
+  width: 100%;
+  padding: 40px 0; /* ⬆️ taller footer */
+  background: linear-gradient(to right, #1a1a1a, #3a3a3a, #1a1a1a); /* 🎭 deeper, dramatic gradient */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4); /* subtle top shadow for depth */
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px; /* wider spacing between links */
+  flex-wrap: wrap;
+}
+
+.footer-links a,
+.footer-links a:visited {
+  color: #ccd4ff !important; /* 👈 ensure it overrides browser default */
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+
+.footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
