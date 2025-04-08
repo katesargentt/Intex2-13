@@ -2857,23 +2857,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ainsl\\.nuget\\packages\\": {},
+    "C:\\Users\\summe\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\CineNiche.API.csproj",
+      "projectUniqueName": "C:\\Users\\summe\\Source\\Repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
       "projectName": "CineNiche.API",
-      "projectPath": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\CineNiche.API.csproj",
-      "packagesPath": "C:\\Users\\ainsl\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ainsl\\Desktop\\Intex-2\\backend\\CineNiche.API\\obj\\",
+      "projectPath": "C:\\Users\\summe\\Source\\Repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
+      "packagesPath": "C:\\Users\\summe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\summe\\Source\\Repos\\Intex2-13\\backend\\CineNiche.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ainsl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\summe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
