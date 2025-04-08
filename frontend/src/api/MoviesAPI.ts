@@ -19,9 +19,17 @@ export const fetchMovies = async (
       .map((cat) => `movieTypes=${encodeURIComponent(cat)}`)
       .join('&');
 
-    const response = await fetch(
-      `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`
-    );
+      const response = await fetch(
+        `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`,
+        {
+          method: 'GET',
+          credentials: 'include', // 🔥 Important for cookies/sessions
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      
 
     if (!response.ok) {
       throw new Error('Failed to fetch movies');
@@ -46,6 +54,7 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
   try {
     const response = await fetch(`${API_URL}/AddMovie`, {
       method: 'POST',
+      credentials: 'include', // 👈 only if cookies/session auth are used
       headers: {
         'Content-Type': 'application/json',
       },
@@ -73,11 +82,13 @@ export const updateMovie = async (
   try {
     const response = await fetch(`${API_URL}/UpdateMovie/${showId}`, {
       method: 'PUT',
+      credentials: 'include', // ✅ only needed for cookie-based/session auth
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedMovie),
     });
+    
 
     if (!response.ok) {
       throw new Error('Failed to update movie');
@@ -95,6 +106,7 @@ export const deleteMovie = async (showId: string): Promise<void> => {
   try {
     const response = await fetch(`${API_URL}/DeleteMovie/${showId}`, {
       method: 'DELETE',
+      credentials: 'include', // 👈 only if you need cookie/session auth
     });
 
     if (!response.ok) {
