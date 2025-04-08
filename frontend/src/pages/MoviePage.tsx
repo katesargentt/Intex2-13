@@ -7,6 +7,10 @@ interface Movie {
   image: string;
 }
 
+const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api";
+
+const endpoint = `${API_URL}/recommend/user/3`;
+
 const featuredMovie = {
   title: 'We Live in Time',
   description:
@@ -18,7 +22,7 @@ const MoviePage: React.FC = () => {
   const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/recommend/user/3')
+    fetch(endpoint)
       .then((res) => res.json())
       .then((data) => setRecommendedMovies(data))
       .catch((err) => console.error('Error fetching recommendations:', err));
