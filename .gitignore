@@ -3,5 +3,5 @@ obj/
 .vs/
 obj/
 .DS_Store
-/node_modules
+node_modules/
 /.vscode/
