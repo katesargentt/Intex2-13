@@ -14,7 +14,7 @@ function LandingPage() {
         <div className="button-group">
           <button
             className="primary-button"
-            onClick={() => navigate('/createAccount')}
+            onClick={() => navigate('/register')}
           >
             Create Account
           </button>
