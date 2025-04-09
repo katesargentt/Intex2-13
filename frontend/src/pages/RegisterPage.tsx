@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
 function Register() {
-  // state variables for email and passwords
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,7 +13,6 @@ function Register() {
     navigate('/login');
   };
 
-  // handle change events for input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'email') setEmail(value);
@@ -22,48 +20,73 @@ function Register() {
     if (name === 'confirmPassword') setConfirmPassword(value);
   };
 
-  // handle submit event for the form
+  // 🔐 Password validation rules
+  const validatePassword = (pwd: string): string => {
+    const issues = [];
+
+    if (pwd.length < 12) issues.push('• At least 12 characters');
+    if (!/[A-Z]/.test(pwd)) issues.push('• At least one uppercase letter');
+    if (!/[a-z]/.test(pwd)) issues.push('• At least one lowercase letter');
+    if (!/[0-9]/.test(pwd)) issues.push('• At least one number');
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) issues.push('• At least one special character');
+
+    return issues.join('\n');
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // validate email and passwords
+
+    // Basic empty field check
     if (!email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Please enter a valid email address.');
-    } else if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-    } else {
-      // clear error message
-      setError('');
-      // post data to the /register api
-      fetch('https://localhost:5000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-        //.then((response) => response.json())
-        .then((data) => {
-          // handle success or error from the server
-          console.log(data);
-          if (data.ok) setError('Successful registration. Please log in.');
-          else setError('Error registering.');
-        })
-        .catch((error) => {
-          // handle network error
-          console.error(error);
-          setError('Error registering.');
-        });
+      return;
     }
+
+    // Email format
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    // Password match check
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    // Password strength check
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors) {
+      setError(`Password requirements:\n${passwordErrors}`);
+      return;
+    }
+
+    // All validations passed
+    setError('');
+
+    fetch('https://localhost:5000/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setError('Successful registration. Please log in.');
+        } else {
+          setError('Error registering. Please try again.');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setError('Error registering.');
+      });
   };
 
   return (
     <div className="register-wrapper">
-      <div className="cine-title">CineNiche</div>
+      <div className="cine-title" onClick={() => navigate('/')}>
+        CineNiche
+      </div>
       <div className="register-card">
         <h2 className="register-title">Create Account</h2>
 
@@ -109,7 +132,7 @@ function Register() {
               className="btn btn-login text-uppercase fw-bold"
               type="submit"
             >
-              Register
+              Create Account
             </button>
           </div>
 
@@ -123,7 +146,11 @@ function Register() {
             </button>
           </div>
 
-          {error && <p className="error">{error}</p>}
+          {error && (
+            <p className="error" style={{ whiteSpace: 'pre-wrap' }}>
+              {error}
+            </p>
+          )}
         </form>
       </div>
     </div>

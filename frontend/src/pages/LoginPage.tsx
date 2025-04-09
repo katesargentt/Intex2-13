@@ -74,7 +74,9 @@ function LoginPage() {
 
   return (
     <div className="login-wrapper">
-      <div className="cine-title">CineNiche</div>
+      <div className="cine-title" onClick={() => navigate('/')}>
+        CineNiche
+      </div>
       <div className="login-card">
         <h2 className="login-title">Sign In</h2>
 
