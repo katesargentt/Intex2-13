@@ -12,13 +12,13 @@ export default defineConfig({
         "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com; " +
         "style-src 'self' 'unsafe-inline' fonts.googleapis.com https://accounts.google.com; " +
         "img-src 'self' data:; " +
-        "frame-ancestors 'none'; " +
         "font-src 'self' fonts.gstatic.com data:; " +
-        "connect-src 'self' http://localhost:5002 https://localhost:5000 https://accounts.google.com https://oauth2.googleapis.com; " +
-        "object-src 'none'; " +
+        "connect-src 'self' http://localhost:5002 https://accounts.google.com https://oauth2.googleapis.com; " + // ✅ FIXED THIS LINE
+        "frame-src 'self' https://accounts.google.com https://oauth2.googleapis.com; " +
+        "frame-ancestors 'none'; " +
         "base-uri 'self'; " +
         "form-action 'self'; " +
-        "frame-src 'self' https://accounts.google.com https://oauth2.googleapis.com;", // ✅ Allow OAuth login popups
+        "object-src 'none';",
     },
   },
 });

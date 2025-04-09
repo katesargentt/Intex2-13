@@ -39,14 +39,8 @@ const MoviePage: React.FC = () => {
       .then((data) => {
         console.log('✅ Recommendations fetched:', data);
 
-        const genres: { [key: string]: Movie[] } = {};
-        data.forEach((movie: Movie) => {
-          if (!genres[movie.genre]) genres[movie.genre] = [];
-          genres[movie.genre].push(movie);
-        });
-
-        setRecommendedMovies(data);
-        setGenreMovies(genres);
+        setRecommendedMovies(data.recommended || []);
+        setGenreMovies(data.by_genre || {});
       })
       .catch((err) => {
         console.error('❌ Error fetching recommendations:', err);
