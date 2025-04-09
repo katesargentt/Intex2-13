@@ -4,3 +4,12 @@ obj/
 obj/
 .DS_Store
 node_modules/
+# Ignore NuGet-generated files
+*.nuget.*
+project.assets.json
+# Ignore NuGet-generated files
+*.nuget.*
+*.targets
+*.props
+*.dgspec.json
+*.nuget.cache
