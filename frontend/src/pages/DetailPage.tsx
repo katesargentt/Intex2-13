@@ -111,7 +111,7 @@ function DetailPage() {
           {recommendations.map((rec) => (
             <div className="recommendation-card" key={rec.showId}>
               <img
-                src={`https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/${rec.image}`}
+                src={`https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters/${rec.title}`}
                 alt={rec.title}
                 className="recommendation-image"
               />
