@@ -18,7 +18,7 @@ function App() {
           <Route path="/createAccount" element={<CreateAccount />} />
           <Route path="/privacyPolicy" element={<PrivacyPage />} />
           <Route path="/movies" element={<MoviePage />} />
-          <Route path="/details" element={<DetailPage />} />
+          <Route path="/details/:showId" element={<DetailPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>

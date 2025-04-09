@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+
 
 namespace CineNiche.API.Controllers
 {
@@ -214,5 +216,42 @@ namespace CineNiche.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetMovieById(string id)
+        {
+            var movie = _movieContext.MoviesTitles.FirstOrDefault(m => m.ShowId == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            // Get all int? properties that represent genres (value == 1)
+            var categories = movie.GetType()
+                .GetProperties()
+                .Where(prop => prop.PropertyType == typeof(int?) && prop.GetValue(movie) is int value && value == 1)
+                .Select(prop => prop.Name)
+                .ToList();
+
+            var result = new
+            {
+                movie.ShowId,
+                movie.Type,
+                movie.Title,
+                movie.Director,
+                movie.Cast,
+                movie.Country,
+                movie.ReleaseYear,
+                movie.Rating,
+                movie.Duration,
+                movie.Description,
+                Categories = categories
+            };
+
+            return Ok(result);
+        }
+
+
+
     }
 }

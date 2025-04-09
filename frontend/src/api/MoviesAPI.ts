@@ -5,8 +5,8 @@ interface FetchMoviesResponse {
   totalNumMovies: number;
 }
 
-const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie"; //api url
-//const API_URL = 'https://localhost:5000/api/Movie'; // 👈 Use HTTP or HTTPS based on your backend
+// const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie"; //api url
+const API_URL = 'https://localhost:5000/api/Movie'; // 👈 Use HTTP or HTTPS based on your backend
 
 // ✅ Fetch movies with optional filtering by category
 export const fetchMovies = async (
