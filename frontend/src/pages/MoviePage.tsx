@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './MoviePage.css';
 import { useParams } from 'react-router-dom';
+import { AuthorizedUser } from '../components/AuthorizeView';
+import Logout from '../components/Logout';
 
 interface Movie {
   show_id: string;
@@ -47,9 +49,14 @@ const MoviePage: React.FC = () => {
       });
   }, [userId]);
 
-  if (recommendedMovies.length === 0 && Object.keys(genreMovies).length === 0) {
+  if (!userId) {
     return (
       <div className="movie-page">
+        <span>
+          <Logout>
+            Logout <AuthorizedUser value="email" />
+          </Logout>
+        </span>
         <h2 className="section-title">Recommended for you</h2>
         <p style={{ color: 'white', textAlign: 'center' }}>
           No recommendations found for user {userId}, or something went wrong.
@@ -59,60 +66,67 @@ const MoviePage: React.FC = () => {
   }
 
   return (
-    <div className="movie-page">
-      {/* ✅ HERO SECTION */}
-      <div
-        className="hero-banner"
-        style={{
-          backgroundImage: `url(/images/${featuredMovie.image})`,
-        }}
-      >
-        <div className="hero-content">
-          <h1 className="hero-title">{featuredMovie.title}</h1>
-          <p className="hero-description">{featuredMovie.description}</p>
-          <div className="hero-buttons">
-            <button className="hero-btn">Play</button>
-            <button className="hero-btn secondary">More Info</button>
+    <>
+      <span>
+        <Logout>
+          Logout <AuthorizedUser value="email" />
+        </Logout>
+      </span>
+      <div className="movie-page">
+        {/* ✅ HERO SECTION */}
+        <div
+          className="hero-banner"
+          style={{
+            backgroundImage: `url(/images/${featuredMovie.image})`,
+          }}
+        >
+          <div className="hero-content">
+            <h1 className="hero-title">{featuredMovie.title}</h1>
+            <p className="hero-description">{featuredMovie.description}</p>
+            <div className="hero-buttons">
+              <button className="hero-btn">Play</button>
+              <button className="hero-btn secondary">More Info</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ✅ TOP RECOMMENDATIONS SECTION */}
-      <h2 className="section-title">Recommended for you</h2>
-      <div className="movie-row">
-        {recommendedMovies.map((movie) => (
-          <div key={movie.show_id} className="movie-card">
-            <img
-              src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
-              alt={movie.title}
-              className="movie-poster"
-            />
-            <p className="movie-title">{movie.title}</p>
+        {/* ✅ TOP RECOMMENDATIONS SECTION */}
+        <h2 className="section-title">Recommended for you</h2>
+        <div className="movie-row">
+          {recommendedMovies.map((movie) => (
+            <div key={movie.show_id} className="movie-card">
+              <img
+                src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+                alt={movie.title}
+                className="movie-poster"
+              />
+              <p className="movie-title">{movie.title}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ✅ GENRE SECTIONS */}
+        {Object.keys(genreMovies).map((genre) => (
+          <div key={genre}>
+            <h2 className="section-title">
+              {genre.split(',')[0].trim()} Movies You Might Like
+            </h2>
+            <div className="movie-row">
+              {genreMovies[genre].map((movie) => (
+                <div key={movie.show_id} className="movie-card">
+                  <img
+                    src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+                    alt={movie.title}
+                    className="movie-poster"
+                  />
+                  <p className="movie-title">{movie.title}</p>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-
-      {/* ✅ GENRE SECTIONS */}
-      {Object.keys(genreMovies).map((genre) => (
-        <div key={genre}>
-          <h2 className="section-title">
-            {genre.split(',')[0].trim()} Movies You Might Like
-          </h2>
-          <div className="movie-row">
-            {genreMovies[genre].map((movie) => (
-              <div key={movie.show_id} className="movie-card">
-                <img
-                  src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
-                  alt={movie.title}
-                  className="movie-poster"
-                />
-                <p className="movie-title">{movie.title}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
+    </>
   );
 };
 
