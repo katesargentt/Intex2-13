@@ -11,7 +11,6 @@ import { Search } from 'lucide-react';
 import DetailPage from './DetailPage';
 import { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
-
 interface Movie {
   show_id: string;
   title: string;
@@ -21,13 +20,11 @@ interface Movie {
 
 const IMAGE_URL =
   'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
-
 const MoviePage: React.FC = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
-
   const [searchTerm, setSearchTerm] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
@@ -36,14 +33,12 @@ const MoviePage: React.FC = () => {
     {}
   );
   const searchRef = useRef<HTMLDivElement>(null);
-
   const featuredMovie = {
     title: 'We Live in Time',
     description:
       'A heartwarming romance that unfolds over decades, revealing the beauty and pain of love.',
     image: 'WE.jpg',
   };
-
   useEffect(() => {
     fetch(`http://localhost:5002/api/recommend/user/${userId}`)
       .then((res) => res.json())
@@ -53,11 +48,9 @@ const MoviePage: React.FC = () => {
       })
       .catch((err) => console.error('Error fetching recommendations:', err));
   }, [userId]);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim() === '') return;
-
     fetch(
       `http://localhost:5002/api/search?q=${encodeURIComponent(searchTerm)}`
     )
@@ -65,7 +58,6 @@ const MoviePage: React.FC = () => {
       .then((data) => setSearchResults(data))
       .catch((err) => console.error('Search error:', err));
   };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -82,7 +74,6 @@ const MoviePage: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
   if (!userId) {
     return (
       <div className="movie-page">
@@ -98,7 +89,6 @@ const MoviePage: React.FC = () => {
       </div>
     );
   }
-
   return (
     <>
       <span>
@@ -107,7 +97,7 @@ const MoviePage: React.FC = () => {
         </Logout>
       </span>
       <div className="movie-page">
-        {/* 🔍 Search Section */}
+        {/* :mag: Search Section */}
         <div className="search-wrapper" ref={searchRef}>
           <button
             className="search-icon-btn"
@@ -149,8 +139,7 @@ const MoviePage: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/* 🎬 Featured Movie */}
+        {/* :clapper: Featured Movie */}
         <div
           className="hero-banner"
           style={{ backgroundImage: `url(/images/${featuredMovie.image})` }}
@@ -164,8 +153,7 @@ const MoviePage: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* ⭐ Top Recommendations */}
+        {/* :star: Top Recommendations */}
         <h2 className="section-title">Recommended for you</h2>
         <div className="movie-row">
           {recommendedMovies.map((movie) => (
@@ -179,8 +167,7 @@ const MoviePage: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* 🎭 Genre Rows */}
+        {/* :performing_arts: Genre Rows */}
         {Object.keys(genreMovies).map((genre) => (
           <div key={genre}>
             <h2 className="section-title">
@@ -200,7 +187,6 @@ const MoviePage: React.FC = () => {
             </div>
           </div>
         ))}
-
         {/* Modal DetailPage rendering */}
         {state?.backgroundLocation && (
           <Routes>
@@ -220,5 +206,4 @@ const MoviePage: React.FC = () => {
     </>
   );
 };
-
 export default MoviePage;

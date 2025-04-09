@@ -80,143 +80,137 @@ const AdminPage = () => {
   }
   return (
     <>
-      <AuthorizeView>
-        <UserCheckWrapper>
-          <span>
-            <Logout>
-              Logout <AuthorizedUser value="email" />
-            </Logout>
-          </span>
-          <div className="admin-reset">
-            <Header />
-            <div className="container mt-5">
-              <h2 className="text-center mb-4">🎬 Admin Movie Manager</h2>
-              {!showForm && (
-                <button
-                  className="btn btn-success mb-3"
-                  onClick={() => setShowForm(true)}
-                >
-                  Add Movie
-                </button>
-              )}
-              {showForm && (
-                <div className="form-overlay">
-                  <div className="form-wrapper">
-                    <NewMovieForm
-                      onSuccess={() => {
-                        setShowForm(false);
-                        fetchMovies(pageSize, pageNum, []).then((data) => {
-                          if (data && Array.isArray(data.movies)) {
-                            const moviesWithCategories = data.movies.map(
-                              (m) => ({
-                                ...m,
-                                categories: getCategories(m),
-                              })
-                            );
-                            setMovies(moviesWithCategories);
-                          }
-                        });
-                      }}
-                      onCancel={() => setShowForm(false)}
-                    />
-                  </div>
+      <UserCheckWrapper>
+        <span>
+          <Logout>
+            Logout <AuthorizedUser value="email" />
+          </Logout>
+        </span>
+        <div className="admin-reset">
+          <Header />
+          <div className="container mt-5">
+            <h2 className="text-center mb-4">🎬 Admin Movie Manager</h2>
+            {!showForm && (
+              <button
+                className="btn btn-success mb-3"
+                onClick={() => setShowForm(true)}
+              >
+                Add Movie
+              </button>
+            )}
+            {showForm && (
+              <div className="form-overlay">
+                <div className="form-wrapper">
+                  <NewMovieForm
+                    onSuccess={() => {
+                      setShowForm(false);
+                      fetchMovies(pageSize, pageNum, []).then((data) => {
+                        if (data && Array.isArray(data.movies)) {
+                          const moviesWithCategories = data.movies.map((m) => ({
+                            ...m,
+                            categories: getCategories(m),
+                          }));
+                          setMovies(moviesWithCategories);
+                        }
+                      });
+                    }}
+                    onCancel={() => setShowForm(false)}
+                  />
                 </div>
-              )}
-              {editingMovie && (
-                <div className="form-overlay">
-                  <div className="edit-form-wrapper">
-                    <EditMovieForm
-                      movie={editingMovie}
-                      onSuccess={() => {
-                        setEditingMovie(null);
-                        fetchMovies(pageSize, pageNum, []).then((data) => {
-                          if (data && Array.isArray(data.movies)) {
-                            const moviesWithCategories = data.movies.map(
-                              (m) => ({
-                                ...m,
-                                categories: getCategories(m),
-                              })
-                            );
-                            setMovies(moviesWithCategories);
-                          }
-                        });
-                      }}
-                      onCancel={() => setEditingMovie(null)} // optional, if you support cancel
-                    />
-                  </div>
+              </div>
+            )}
+            {editingMovie && (
+              <div className="form-overlay">
+                <div className="edit-form-wrapper">
+                  <EditMovieForm
+                    movie={editingMovie}
+                    onSuccess={() => {
+                      setEditingMovie(null);
+                      fetchMovies(pageSize, pageNum, []).then((data) => {
+                        if (data && Array.isArray(data.movies)) {
+                          const moviesWithCategories = data.movies.map((m) => ({
+                            ...m,
+                            categories: getCategories(m),
+                          }));
+                          setMovies(moviesWithCategories);
+                        }
+                      });
+                    }}
+                    onCancel={() => setEditingMovie(null)} // optional, if you support cancel
+                  />
                 </div>
-              )}
-              <div className="table-responsive overflow-auto">
-                <table className="table table-bordered table-striped shadow-sm">
-                  <thead className="table-dark text-center">
-                    <tr>
-                      <th>Show ID</th>
-                      <th>Type</th>
-                      <th>Title</th>
-                      <th>Director</th>
-                      <th>Cast</th>
-                      <th>Country</th>
-                      <th>Release Year</th>
-                      <th>Rating</th>
-                      <th>Duration</th>
-                      <th>Description</th>
-                      <th>Categories</th>
-                      <th>Actions</th>
+              </div>
+            )}
+            <div className="table-responsive overflow-auto">
+              <table className="table table-bordered table-striped shadow-sm">
+                <thead className="table-dark text-center">
+                  <tr>
+                    <th>Show ID</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Director</th>
+                    <th>Cast</th>
+                    <th>Country</th>
+                    <th>Release Year</th>
+                    <th>Rating</th>
+                    <th>Duration</th>
+                    <th>Description</th>
+                    <th>Categories</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {movies.map((m) => (
+                    <tr key={m.showId}>
+                      <td>{m.showId}</td>
+                      <td>{m.type}</td>
+                      <td>{m.title}</td>
+                      <td>{m.director}</td>
+                      <td>{m.cast}</td>
+                      <td>{m.country}</td>
+                      <td>{m.releaseYear}</td>
+                      <td>{m.rating}</td>
+                      <td>{m.duration}</td>
+                      <td className="description-cell">{m.description}</td>
+                      <td>{(m.categories ?? []).join(', ')}</td>
+                      <td>
+                        <div className="d-flex flex-column gap-1">
+                          <button
+                            className="btn btn-sm btn-primary"
+                            onClick={() => setEditingMovie(m)}
+                          >
+                            ✏️ Edit
+                          </button>
+                          <button
+                            className="btn btn-sm btn-danger"
+                            onClick={() => handleDelete(m.showId)}
+                          >
+                            🗑️ Delete
+                          </button>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {movies.map((m) => (
-                      <tr key={m.showId}>
-                        <td>{m.showId}</td>
-                        <td>{m.type}</td>
-                        <td>{m.title}</td>
-                        <td>{m.director}</td>
-                        <td>{m.cast}</td>
-                        <td>{m.country}</td>
-                        <td>{m.releaseYear}</td>
-                        <td>{m.rating}</td>
-                        <td>{m.duration}</td>
-                        <td className="description-cell">{m.description}</td>
-                        <td>{(m.categories ?? []).join(', ')}</td>
-                        <td>
-                          <div className="d-flex flex-column gap-1">
-                            <button
-                              className="btn btn-sm btn-primary"
-                              onClick={() => setEditingMovie(m)}
-                            >
-                              ✏️ Edit
-                            </button>
-                            <button
-                              className="btn btn-sm btn-danger"
-                              onClick={() => handleDelete(m.showId)}
-                            >
-                              🗑️ Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="mt-4 d-flex justify-content-center">
-                <Pagination
-                  currentPage={pageNum}
-                  totalPages={totalPages}
-                  pageSize={pageSize}
-                  onPageChange={setPageNum}
-                  onPageSizeChange={(newSize) => {
-                    setPageSize(newSize);
-                    setPageNum(1);
-                  }}
-                />
-              </div>
-              <br />
+                  ))}
+                </tbody>
+              </table>
             </div>
+
+            <div className="mt-4 d-flex justify-content-center">
+              <Pagination
+                currentPage={pageNum}
+                totalPages={totalPages}
+                pageSize={pageSize}
+                onPageChange={setPageNum}
+                onPageSizeChange={(newSize) => {
+                  setPageSize(newSize);
+                  setPageNum(1);
+                }}
+              />
+            </div>
+            <br />
           </div>
-        </UserCheckWrapper>
-      </AuthorizeView>
+        </div>
+      </UserCheckWrapper>
     </>
   );
 };
