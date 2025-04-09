@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import './Privacy.css';
+import { useNavigate } from 'react-router-dom';
 
 function PrivacyPage() {
+  const navigate = useNavigate();
   useEffect(() => {
     // Add override class to <body> on mount
     document.body.classList.add('static-body');
@@ -13,7 +15,15 @@ function PrivacyPage() {
 
   return (
     <>
-      <Header />
+      {/* Custom Header */}
+      <header className="cine-header">
+        <div className="cine-header-title" onClick={() => navigate('/')}>
+          CineNiche
+        </div>
+        <button className="signin-btn" onClick={() => navigate('/login')}>
+          Sign In
+        </button>
+      </header>
       <div className="privacy-content">
         <h1>Privacy Policy</h1>
         <p>Effective Date: April 7, 2025</p>
