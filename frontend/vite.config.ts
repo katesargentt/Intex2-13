@@ -14,7 +14,7 @@ export default defineConfig({
         "img-src 'self' data:; " +
         "frame-ancestors 'none'; " +
         "font-src 'self' fonts.gstatic.com data:; " +
-        "connect-src 'self' https://localhost:5000 https://accounts.google.com https://oauth2.googleapis.com; " + // ✅ Allow OAuth token exchange
+        "connect-src 'self' http://localhost:5002 https://localhost:5000 https://accounts.google.com https://oauth2.googleapis.com; " +
         "object-src 'none'; " +
         "base-uri 'self'; " +
         "form-action 'self'; " +

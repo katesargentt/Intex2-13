@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './MoviePage.css';
 import { useParams } from 'react-router-dom';
-import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
-import Logout from '../components/Logout';
 
 interface Movie {
   show_id: string;
@@ -31,7 +29,7 @@ const MoviePage: React.FC = () => {
 
   useEffect(() => {
     console.log(`🎯 Fetching recommendations for user ${userId}`);
-    fetch(`/api/recommend/user/${userId}`)
+    fetch(`http://localhost:5002/api/recommend/user/${userId}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Server error: ${res.status}`);
@@ -72,9 +70,7 @@ const MoviePage: React.FC = () => {
       <div
         className="hero-banner"
         style={{
-          backgroundImage: `url(/images/movies/${encodeURIComponent(
-            'Movie Posters'
-          )}/${featuredMovie.image})`,
+          backgroundImage: `url(/images/${featuredMovie.image})`,
         }}
       >
         <div className="hero-content">
@@ -105,7 +101,9 @@ const MoviePage: React.FC = () => {
       {/* ✅ GENRE SECTIONS */}
       {Object.keys(genreMovies).map((genre) => (
         <div key={genre}>
-          <h2 className="section-title">{genre} Movies You Might Like</h2>
+          <h2 className="section-title">
+            {genre.split(',')[0].trim()} Movies You Might Like
+          </h2>
           <div className="movie-row">
             {genreMovies[genre].map((movie) => (
               <div key={movie.show_id} className="movie-card">
