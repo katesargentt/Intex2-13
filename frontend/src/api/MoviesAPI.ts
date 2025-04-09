@@ -5,12 +5,7 @@ interface FetchMoviesResponse {
   totalNumMovies: number;
 }
 
-<<<<<<< HEAD
-//const API_URL =
-//'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie'; //api url
-=======
 // const API_URL = "https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie"; //api url
->>>>>>> 1214d5e9618e997e547c3656f043e0017d6f2955
 const API_URL = 'https://localhost:5000/api/Movie'; // 👈 Use HTTP or HTTPS based on your backend
 
 // ✅ Fetch movies with optional filtering by category
@@ -24,18 +19,6 @@ export const fetchMovies = async (
       .map((cat) => `movieTypes=${encodeURIComponent(cat)}`)
       .join('&');
 
-<<<<<<< HEAD
-    const response = await fetch(
-      `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`,
-      {
-        method: 'GET',
-        credentials: 'include', // 🔥 Important for cookies/sessions
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-=======
       const response = await fetch(
         `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`,
         {
@@ -47,7 +30,6 @@ export const fetchMovies = async (
         }
       );
       
->>>>>>> 1214d5e9618e997e547c3656f043e0017d6f2955
 
     if (!response.ok) {
       throw new Error('Failed to fetch movies');
