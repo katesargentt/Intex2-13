@@ -13,16 +13,16 @@ function LandingPage() {
         <h1 className="landing-title">CineNiche</h1>
         <div className="button-group">
           <button
-            className="primary-button"
-            onClick={() => navigate('/register')}
-          >
-            Create Account
-          </button>
-          <button
             className="secondary-button"
             onClick={() => navigate('/login')}
           >
             Login
+          </button>
+          <button
+            className="primary-button"
+            onClick={() => navigate('/register')}
+          >
+            Create Account
           </button>
         </div>
         <div className="carousel">
