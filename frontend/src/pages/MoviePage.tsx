@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './MoviePage.css';
 import { useParams } from 'react-router-dom';
+import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
+import Logout from '../components/Logout';
 
 interface Movie {
   show_id: string;

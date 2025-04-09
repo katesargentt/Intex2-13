@@ -9,6 +9,7 @@ import AdminPage from './pages/AdminPage';
 
 function App() {
   return (
+<<<<<<< HEAD
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
@@ -21,6 +22,22 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </Router>
+=======
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/createAccount" element={<CreateAccount />} />
+          <Route path="/privacyPolicy" element={<PrivacyPage />} />
+          <Route path="/movies" element={<MoviePage />} />
+          <Route path="/details/:showId" element={<DetailPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </Router>
+    </>
+>>>>>>> 1214d5e9618e997e547c3656f043e0017d6f2955
   );
 }
 
