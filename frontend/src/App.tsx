@@ -18,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPage />} />
+        <Route path="/defaultPage" element={<DefaultMoviePage/>}/>
 
         {/* Protected Routes */}
         <Route
