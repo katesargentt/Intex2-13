@@ -6,6 +6,7 @@ import MoviePage from './pages/MoviePage'; // Import MoviePage component
 import DetailPage from './pages/DetailPage';
 import AdminPage from './pages/AdminPage';
 import RegisterPage from './pages/RegisterPage';
+import DefaultMoviePage from './pages/DefaultMoviePage';
 import AuthorizeView from './components/AuthorizeView';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/privacyPolicy" element={<PrivacyPage />} />
+        <Route path="/defaultPage" element={<DefaultMoviePage/>}/>
 
         {/* Protected Routes */}
         <Route

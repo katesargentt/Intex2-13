@@ -76,50 +76,51 @@ function DetailPage() {
           </div>
         )}
 
-        <div className="movie-details">
-          <h1>{movie.title}</h1>
-          <p className="description">{movie.description}</p>
-          <p>
-            <strong>Year:</strong> {movie.releaseYear}
-          </p>
-          <p>
-            <strong>Duration:</strong> {movie.duration}
-          </p>
-          <p>
-            <strong>Rating:</strong> {movie.rating}
-          </p>
-          <p>
-            <strong>Director:</strong> {movie.director}
-          </p>
-          <p>
-            <strong>Cast:</strong> {movie.cast}
-          </p>
-          <p>
-            <strong>Country:</strong> {movie.country}
-          </p>
-          <p>
-            <strong>Genres:</strong>{' '}
-            {movie.categories && movie.categories.length > 0
-              ? movie.categories.join(', ')
-              : 'N/A'}
-          </p>
-        </div>
-      </div>
-      <div>
-        <h4>If you liked {movie.title}...</h4>
-        <div className="recommendation-row">
-          {recommendations.map((rec) => (
-            <div className="recommendation-card" key={rec.showId}>
-              <img
-                src={`https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters/${rec.title}`}
-                alt={rec.title}
-                className="recommendation-image"
-              />
-              <p className="recommendation-title">{rec.title}</p>
-            </div>
-          ))}
-        </div>{' '}
-      </div>
+         <div className="movie-details">
+           <h1>{movie.title}</h1>
+           <p className="description">{movie.description}</p>
+           <p>
+             <strong>Year:</strong> {movie.releaseYear}
+           </p>
+           <p>
+             <strong>Duration:</strong> {movie.duration}
+           </p>
+           <p>
+             <strong>Rating:</strong> {movie.rating}
+           </p>
+           <p>
+             <strong>Director:</strong> {movie.director}
+           </p>
+           <p>
+             <strong>Cast:</strong> {movie.cast}
+           </p>
+           <p>
+             <strong>Country:</strong> {movie.country}
+           </p>
+           <p>
+             <strong>Genres:</strong>{' '}
+             {movie.categories && movie.categories.length > 0
+               ? movie.categories.join(', ')
+               : 'N/A'}
+           </p>
+         </div>
+       </div>
+       <div>
+         <h4>If you liked {movie.title}...</h4>
+         <div className="recommendation-row">
+           {recommendations.map((rec) => (
+             <div className="recommendation-card" key={rec.showId}>
+               <img
+                 src={`${IMAGE_URL}/${encodeURIComponent(rec.title.trim())}.jpg`}
+                 alt={rec.title}
+                 className="recommendation-image"
+               />
+               <p className="recommendation-title">{rec.title}</p>
+             </div>
+           ))}
+         </div>{' '}
+       </div>
+
 
       <Footer />
     </>
