@@ -88,7 +88,6 @@ export const updateMovie = async (
       },
       body: JSON.stringify(updatedMovie),
     });
-    
 
     if (!response.ok) {
       throw new Error('Failed to update movie');
