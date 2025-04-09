@@ -1,1 +1,13 @@
+# Ignore build artifacts
 obj/
+bin/
+**/obj/
+**/bin/
+
+# NuGet-generated files
+*.nuget.*
+*.props
+*.targets
+*.dgspec.json
+*.nuget.cache
+project.assets.json
