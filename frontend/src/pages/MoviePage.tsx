@@ -129,7 +129,7 @@ const MoviePage: React.FC = () => {
                   }
                 >
                   <img
-                    src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+                    src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.title}`}
                     alt={movie.title}
                   />
                   <span>{movie.title}</span>

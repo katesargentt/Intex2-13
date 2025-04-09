@@ -42,5 +42,49 @@
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   }
+
+  .recommendation-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    justify-content: flex-start;
+  }
+  
+  .recommendation-card {
+    width: 150px;
+    text-align: center;
+  }
+  
+  .recommendation-image {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .recommendation-fallback {
+    width: 100%;
+    height: 225px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #777;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .recommendation-title {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fff;
+  }
+  
   
   
