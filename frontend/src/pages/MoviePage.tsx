@@ -1,24 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './MoviePage.css';
-import { useParams } from 'react-router-dom';
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import { Search } from 'lucide-react';
+import DetailPage from './DetailPage';
 
 interface Movie {
   show_id: string;
   title: string;
   image: string;
-  genre: string; // Added genre to the Movie interface
+  genre: string;
 }
 const IMAGE_URL =
   'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
 const MoviePage: React.FC = () => {
-  const { userId } = useParams(); // Retrieve userId from URL
-  console.log('User ID from params:', userId);
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as { backgroundLocation?: Location };
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
   const [genreMovies, setGenreMovies] = useState<{ [key: string]: Movie[] }>(
     {}
   );
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const featuredMovie = {
     title: 'We Live in Time',
@@ -27,42 +41,91 @@ const MoviePage: React.FC = () => {
     image: 'WE.jpg',
   };
 
-  console.log('📺 MoviePage loaded');
-
   useEffect(() => {
-    console.log(`🎯 Fetching recommendations for user ${userId}`);
     fetch(`http://localhost:5002/api/recommend/user/${userId}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Server error: ${res.status}`);
-        }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
-        console.log('✅ Recommendations fetched:', data);
-
         setRecommendedMovies(data.recommended || []);
         setGenreMovies(data.by_genre || {});
       })
-      .catch((err) => {
-        console.error('❌ Error fetching recommendations:', err);
-      });
+      .catch((err) => console.error('Error fetching recommendations:', err));
   }, [userId]);
 
-  if (recommendedMovies.length === 0 && Object.keys(genreMovies).length === 0) {
-    return (
-      <div className="movie-page">
-        <h2 className="section-title">Recommended for you</h2>
-        <p style={{ color: 'white', textAlign: 'center' }}>
-          No recommendations found for user {userId}, or something went wrong.
-        </p>
-      </div>
-    );
-  }
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim() === '') return;
+
+    fetch(
+      `http://localhost:5002/api/search?q=${encodeURIComponent(searchTerm)}`
+    )
+      .then((res) => res.json())
+      .then((data) => setSearchResults(data))
+      .catch((err) => console.error('Search error:', err));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setShowSearch(false);
+        setSearchResults([]);
+        setSearchTerm('');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="movie-page">
-      {/* ✅ HERO SECTION */}
+      {/* 🔍 Search Section */}
+      <div className="search-wrapper" ref={searchRef}>
+        <button
+          className="search-icon-btn"
+          onClick={() => setShowSearch((prev) => !prev)}
+        >
+          <Search size={22} color="white" />
+        </button>
+        {showSearch && (
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-bar"
+              autoFocus
+            />
+          </form>
+        )}
+        {searchResults.length > 0 && (
+          <div className="search-dropdown wide">
+            {searchResults.map((movie) => (
+              <div
+                key={movie.show_id}
+                className="search-item"
+                onClick={() =>
+                  navigate(`/details/${movie.show_id}`, {
+                    state: { backgroundLocation: location },
+                  })
+                }
+              >
+                <img
+                  src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+                  alt={movie.title}
+                />
+                <span>{movie.title}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* 🎬 Featured Movie */}
       <div
         className="hero-banner"
         style={{
@@ -79,7 +142,7 @@ const MoviePage: React.FC = () => {
         </div>
       </div>
 
-      {/* ✅ TOP RECOMMENDATIONS SECTION */}
+      {/* ⭐ Top Recommendations */}
       <h2 className="section-title">Recommended for you</h2>
       <div className="movie-row">
         {recommendedMovies.map((movie) => (
@@ -94,11 +157,11 @@ const MoviePage: React.FC = () => {
         ))}
       </div>
 
-      {/* ✅ GENRE SECTIONS */}
+      {/* 🎭 Genre Rows */}
       {Object.keys(genreMovies).map((genre) => (
         <div key={genre}>
           <h2 className="section-title">
-            {genre.split(',')[0].trim()} Movies You Might Like
+            {genre.split(',')[0]} You Might Like
           </h2>
           <div className="movie-row">
             {genreMovies[genre].map((movie) => (
@@ -114,6 +177,22 @@ const MoviePage: React.FC = () => {
           </div>
         </div>
       ))}
+
+      {/* Modal DetailPage rendering */}
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route
+            path="/details/:showId"
+            element={
+              <div className="modal-backdrop">
+                <div className="modal-container">
+                  <DetailPage />
+                </div>
+              </div>
+            }
+          />
+        </Routes>
+      )}
     </div>
   );
 };

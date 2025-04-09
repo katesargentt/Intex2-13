@@ -1,7 +1,10 @@
-# app.py
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from recommender_logic import Recommender, get_content_based_recommendations
 from flask_cors import CORS
+import sqlite3
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +26,31 @@ def recommend_for_movie(movie_id):
         return jsonify(recs)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/api/search", methods=["GET"])
+def search_movies():
+    query = request.args.get("q", "").strip()
+    if not query:
+        return jsonify([])
+
+    conn = sqlite3.connect("Movies.db")
+    df = pd.read_sql_query("SELECT show_id, title, description FROM movies_titles", conn)
+    conn.close()
+
+    df['description'] = df['description'].fillna("")
+    df['combined'] = df['title'] + " " + df['description']
+
+    tfidf = TfidfVectorizer(stop_words='english')
+    tfidf_matrix = tfidf.fit_transform(df['combined'])
+
+    query_vec = tfidf.transform([query])
+    similarities = cosine_similarity(query_vec, tfidf_matrix).flatten()
+    df['similarity'] = similarities
+
+    top_matches = df.sort_values(by='similarity', ascending=False).head(15)
+    top_matches['image'] = top_matches['show_id'] + ".jpg"
+
+    return jsonify(top_matches[['show_id', 'title', 'image']].to_dict(orient='records'))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5002)

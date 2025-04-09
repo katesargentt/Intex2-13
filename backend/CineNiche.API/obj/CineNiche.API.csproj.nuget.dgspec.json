@@ -17,7 +17,11 @@
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\ainsl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\summe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> summerssecond
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
