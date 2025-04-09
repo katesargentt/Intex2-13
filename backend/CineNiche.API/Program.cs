@@ -85,7 +85,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    // app.UseHsts(); // Add this line
+    app.UseHsts(); // keep in the isDevelopment code block
 }
 app.Use(async (context, next) =>
 {
