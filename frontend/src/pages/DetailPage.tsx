@@ -34,7 +34,7 @@ function DetailPage() {
   useEffect(() => {
     if (!showId) return;
 
-    fetch(`http://localhost:5002/api/recommend/movie/${showId}`)
+    fetch(`http://localhost:5002/api/recommend/hybrid/${showId}`)
       .then((res) => res.json())
       .then((data) => setRecommendations(data))
       .catch((err) => console.error('Error fetching recommendations:', err));

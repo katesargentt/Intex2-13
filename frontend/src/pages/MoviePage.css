@@ -151,16 +151,17 @@ html,
 
 .search-dropdown {
   position: absolute;
-  top: 3.5rem;
-  right: 5rem;
-  background: white;
-  color: black;
-  border-radius: 0.5rem;
-  max-height: 200px;
+  top: 3.2rem;
+  right: 0;
+  background-color: black; /* black background */
+  color: white; /* white text */
+  border: 1px solid #444;
+  max-height: 300px;
   overflow-y: auto;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 11;
-  width: 250px;
+  width: 300px;
+  z-index: 100;
+  padding: 0.5rem;
+  border-radius: 8px;
 }
 
 .search-result {
@@ -179,6 +180,16 @@ html,
   display: flex;
   align-items: center;
   z-index: 20;
+}
+
+.search-item {
+  padding: 0.5rem;
+  cursor: pointer;
+  color: white; /* white text */
+}
+
+.search-item:hover {
+  background-color: #222; /* darker on hover */
 }
 
 .search-icon-btn {
