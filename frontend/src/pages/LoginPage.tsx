@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Logout from '../components/Logout';
 
 function LoginPage() {
   // state variables for email and passwords
