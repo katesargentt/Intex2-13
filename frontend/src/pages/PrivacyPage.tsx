@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { AuthorizedUser } from '../components/AuthorizeView';
+import Logout from '../components/Logout';
 
 function PrivacyPage() {
   useEffect(() => {
@@ -13,6 +15,11 @@ function PrivacyPage() {
 
   return (
     <>
+      <span>
+        <Logout>
+          Logout <AuthorizedUser value="email" />
+        </Logout>
+      </span>
       <Header />
       <div className="privacy-content">
         <h1>Privacy Policy</h1>

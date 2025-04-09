@@ -13,7 +13,7 @@ export default defineConfig({
         "style-src 'self' 'unsafe-inline' fonts.googleapis.com https://accounts.google.com; " +
         "img-src 'self' data:; " +
         "font-src 'self' fonts.gstatic.com data:; " +
-        "connect-src 'self' http://localhost:5002 https://accounts.google.com https://oauth2.googleapis.com; " + // ✅ FIXED THIS LINE
+        "connect-src 'self' http://localhost:5000 https://localhost:5000 http://localhost:5002 https://accounts.google.com https://oauth2.googleapis.com; " + // ✅ FIXED THIS LINE
         "frame-src 'self' https://accounts.google.com https://oauth2.googleapis.com; " +
         "frame-ancestors 'none'; " +
         "base-uri 'self'; " +
