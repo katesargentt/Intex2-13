@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 function Logout(props: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
-  const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
@@ -26,9 +26,22 @@ function Logout(props: { children: React.ReactNode }) {
   };
 
   return (
-    <a className="logout" href="#" onClick={handleLogout}>
-      {props.children}
-    </a>
+    <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+      <button
+        onClick={handleLogout}
+        className="secondary-button skinny"
+        style={{
+          padding: '6px 10px',
+          fontSize: '14px',
+          borderRadius: '6px',
+          display: 'inline-block',
+          width: 'fit-content',
+          minWidth: 'auto',
+        }}
+      >
+        {props.children}
+      </button>
+    </div>
   );
 }
 
