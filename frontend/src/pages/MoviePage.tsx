@@ -179,7 +179,9 @@ const MoviePage: React.FC = () => {
               }
             >
               <img
-                src={`${IMAGE_URL}/${encodeURIComponent(movie.title.trim())}.jpg`}
+                src={`${IMAGE_URL}/${encodeURIComponent(
+                  movie.title.replace(/[^\w\s]/gi, '').trim()
+                )}.jpg`}
                 alt={movie.title}
                 className="movie-poster"
               />
@@ -206,7 +208,9 @@ const MoviePage: React.FC = () => {
                   }
                 >
                   <img
-                    src={`${IMAGE_URL}/${encodeURIComponent(movie.title.trim())}.jpg`}
+                    src={`${IMAGE_URL}/${encodeURIComponent(
+                      movie.title.replace(/[^\w\s]/gi, '').trim()
+                    )}.jpg`}
                     alt={movie.title}
                     className="movie-poster"
                   />
