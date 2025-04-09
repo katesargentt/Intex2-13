@@ -67,7 +67,7 @@
    }
    
    .btn.btn-login:hover {
-     background-color: #406ac7;
+     background-color: #5f5dd7;
    }
    
    .error {
@@ -89,6 +89,7 @@
      z-index: 10;
      letter-spacing: 1px;
      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+     cursor: pointer;
    }
    
    /* Floating label behavior */
@@ -104,4 +105,29 @@
      transform: scale(0.85) translateY(-1.6rem) translateX(0.15rem);
      color: #ccd4ff;
    }
+
+   .input-error {
+    border: 1px solid #ff6b6b;
+    background-color: #fff4f4;
+    text-align: left;
+  }
+  
+  .error-message {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 6px;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+
+  .error {
+    color: #ff6b6b;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    white-space: pre-wrap;
+    text-align: left;
+    display: block;
+    width: 100%;
+  }
+  
    
