@@ -7,6 +7,7 @@ import MoviePage from './pages/MoviePage'; // Import MoviePage component
 import DetailPage from './pages/DetailPage';
 import AdminPage from './pages/AdminPage';
 import RegisterPage from './pages/RegisterPage';
+import DefaultMoviePage from './pages/DefaultMoviePage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/details" element={<DetailPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/defaultPage/:userId?" element={<DefaultMoviePage />} />
       </Routes>
     </Router>
   );
