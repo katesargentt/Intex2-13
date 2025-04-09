@@ -77,6 +77,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<IEmailSender<IdentityUser>, NoOpEmailSender<IdentityUser>>();
+builder.Services.AddSingleton<HtmlSanitizerService>();
 
 var app = builder.Build();
 
