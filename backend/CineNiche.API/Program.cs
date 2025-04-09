@@ -85,8 +85,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    // app.UseHsts(); // keep in the isDevelopment code block
 }
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.Use(async (context, next) =>
 {
     Console.WriteLine("Request Origin: " + context.Request.Headers["Origin"]);
