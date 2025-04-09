@@ -54,14 +54,15 @@ body {
 
 
 .landing-title {
- font-size: 128px;
+ font-size: 140px;
  font-weight: 700;
  color: #CCD4FF;
  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
  letter-spacing: 4px;
  margin-bottom: 20px;
  margin-top: 100px;
- font-family: 'Stardos Stencil', cursive;
+ font-family: 'Noto Serif', serif;
+ font-weight: normal;
 }
 
 
