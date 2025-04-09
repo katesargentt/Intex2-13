@@ -3,6 +3,8 @@ import pandas as pd
 from sklearn.decomposition import TruncatedSVD
 from sklearn.metrics.pairwise import linear_kernel
 from scipy.sparse import csr_matrix
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 class Recommender:
     def __init__(self, db_path="Movies.db"):
@@ -113,41 +115,46 @@ class Recommender:
 
         return result
 
-def get_content_based_recommendations(target_show_id, top_n=5, db_path="Movies.db"):
-    import sqlite3
-    import pandas as pd
-    from sklearn.feature_extraction.text import TfidfVectorizer
-    from sklearn.metrics.pairwise import linear_kernel
+def get_content_based_recommendations(movie_id, db_path="Movies.db", top_n=5):
+   # Load movie data
+   conn = sqlite3.connect(db_path)
+   movies_df = pd.read_sql_query("SELECT * FROM movies_titles", conn)
+   conn.close()
 
-    conn = sqlite3.connect(db_path)
-    df = pd.read_sql_query("SELECT * FROM movies_titles", conn)
-    conn.close()
 
-    # Fill missing descriptions with empty strings
-    df['description'] = df['description'].fillna("")
+   if 'show_id' not in movies_df.columns or movie_id not in movies_df['show_id'].values:
+       return []
 
-    # TF-IDF matrix from descriptions
-    tfidf = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf.fit_transform(df['description'])
 
-    # Cosine similarity
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+   # Create a combined content field
+   content_fields = [col for col in ['title', 'description', 'director', 'cast'] if col in movies_df.columns]
+   if not content_fields:
+       return []
 
-    # Index of the movie
-    indices = pd.Series(df.index, index=df['show_id']).drop_duplicates()
-    if target_show_id not in indices:
-        return []
 
-    idx = indices[target_show_id]
-    sim_scores = list(enumerate(cosine_sim[idx]))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)[1:top_n+1]
-    movie_indices = [i[0] for i in sim_scores]
+   movies_df['content'] = movies_df[content_fields].fillna('').agg(' '.join, axis=1)
 
-    results = df.iloc[movie_indices].copy()
 
-    # Include genre and image for frontend
-    genre_cols = [col for col in results.columns if results[col].isin([0, 1]).all()]
-    results['genre'] = results[genre_cols].apply(lambda row: ', '.join([col for col in genre_cols if row[col] == 1]), axis=1)
-    results['image'] = results['show_id'] + ".jpg"
+   tfidf = TfidfVectorizer(stop_words='english')
+   tfidf_matrix = tfidf.fit_transform(movies_df['content'])
 
-    return results[['show_id', 'title', 'image', 'genre']].to_dict(orient='records')
+
+   idx = movies_df[movies_df['show_id'] == movie_id].index[0]
+   cosine_sim = cosine_similarity(tfidf_matrix[idx], tfidf_matrix).flatten()
+   similar_indices = cosine_sim.argsort()[::-1][1:top_n+1]
+
+
+   result = movies_df.iloc[similar_indices].copy()
+
+
+   # Build genre field from one-hot genre flags
+   genre_columns = [col for col in result.columns if result[col].dropna().isin([0, 1]).all()]
+   result['genre'] = result[genre_columns].apply(
+       lambda row: ', '.join([col for col in genre_columns if row[col] == 1]), axis=1
+   ) if genre_columns else ""
+
+
+   result['image'] = result['show_id'] + '.jpg'
+
+
+   return result[['show_id', 'title', 'image', 'genre']].to_dict(orient='records')
