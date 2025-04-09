@@ -8,6 +8,8 @@ interface Movie {
   image: string;
   genre: string; // Added genre to the Movie interface
 }
+const IMAGE_URL =
+  'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
 const MoviePage: React.FC = () => {
   const { userId } = useParams(); // Retrieve userId from URL
@@ -64,7 +66,7 @@ const MoviePage: React.FC = () => {
       <div
         className="hero-banner"
         style={{
-          backgroundImage: `url(/images/${featuredMovie.image})`,
+          backgroundImage: `url("/images/${featuredMovie.image}")`,
         }}
       >
         <div className="hero-content">
@@ -83,7 +85,7 @@ const MoviePage: React.FC = () => {
         {recommendedMovies.map((movie) => (
           <div key={movie.show_id} className="movie-card">
             <img
-              src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+              src={`${IMAGE_URL}/${encodeURIComponent(movie.title.trim())}.jpg`}
               alt={movie.title}
               className="movie-poster"
             />
@@ -102,7 +104,7 @@ const MoviePage: React.FC = () => {
             {genreMovies[genre].map((movie) => (
               <div key={movie.show_id} className="movie-card">
                 <img
-                  src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.image}`}
+                  src={`${IMAGE_URL}/${encodeURIComponent(movie.title.trim())}.jpg`}
                   alt={movie.title}
                   className="movie-poster"
                 />

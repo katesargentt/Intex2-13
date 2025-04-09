@@ -1,27 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\summe\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj": {}
+    "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\summe\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj": {
+    "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\summe\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
+        "projectUniqueName": "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
         "projectName": "CineNiche.API",
-        "projectPath": "C:\\Users\\summe\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
-        "packagesPath": "C:\\Users\\summe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\summe\\source\\repos\\Intex2-13\\backend\\CineNiche.API\\obj\\",
+        "projectPath": "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\CineNiche.API.csproj",
+        "packagesPath": "C:\\Users\\ainsl\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ainsl\\Desktop\\Intex2-13\\backend\\CineNiche.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
-          "C:\\Users\\summe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
           "C:\\Users\\ainsl\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 1214d5e9618e997e547c3656f043e0017d6f2955
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
