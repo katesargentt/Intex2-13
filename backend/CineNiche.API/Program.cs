@@ -101,18 +101,7 @@ app.MapPost("/logout", async (HttpContext context, SignInManager<IdentityUser> s
     return Results.Ok(new { message = "Logout successful" });
 }).RequireAuthorization();
 
-//app.MapGet("/pingauth", (ClaimsPrincipal user) =>
-//{
-//    if (!user.Identity?.IsAuthenticated ?? false)
-//    {
-//        return Results.Unauthorized();
-//    }
-
-//    var email = user.FindFirstValue(ClaimTypes.Email) ?? "unknown@example.com"; // Ensure it's never null
-//    return Results.Json(new { email = email }); // Return as JSON
-//}).RequireAuthorization();
-
-app.MapGet("/pingauth", async (ClaimsPrincipal user, UserManager<IdentityUser> userManager) =>
+app.MapGet("/pingauth", async (ClaimsPrincipal user, UserManager<IdentityUser> userManager, MoviesContext _moviesContext) =>
 {
     if (!user.Identity?.IsAuthenticated ?? false)
     {
@@ -124,10 +113,14 @@ app.MapGet("/pingauth", async (ClaimsPrincipal user, UserManager<IdentityUser> u
     var identityUser = await userManager.GetUserAsync(user);
     var roles = await userManager.GetRolesAsync(identityUser);
 
+    var movieUser = await _moviesContext.MoviesUsers
+        .FirstOrDefaultAsync(mu => mu.Email == identityUser.Email);
+
     return Results.Json(new
     {
         email = email,
-        roles = roles
+        roles = roles,
+        userId = movieUser?.UserId
     });
 }).RequireAuthorization();
 
