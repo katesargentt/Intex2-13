@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from recommender_logic import Recommender, get_content_based_recommendations
+from recommender_logic import Recommender, get_content_based_recommendations, get_hybrid_recommendations
 from flask_cors import CORS
 import sqlite3
 import pandas as pd
@@ -23,6 +23,14 @@ def recommend_for_user(user_id):
 def recommend_for_movie(movie_id):
     try:
         recs = get_content_based_recommendations(movie_id)
+        return jsonify(recs)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route("/api/recommend/hybrid/<movie_id>", methods=["GET"])
+def hybrid_recommendations(movie_id):
+    try:
+        recs = get_hybrid_recommendations(movie_id)
         return jsonify(recs)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
