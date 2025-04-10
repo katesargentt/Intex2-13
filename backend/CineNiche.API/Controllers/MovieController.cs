@@ -70,9 +70,12 @@ namespace CineNiche.API.Controllers
             var totalNumMovies = query.Count();
 
             var results = query
+                .AsEnumerable() // switch to in-memory
+                .OrderBy(m => int.Parse(m.ShowId.Substring(1))) // sort numerically by ShowId
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
+
 
             // 🎁 Return response
             var response = new

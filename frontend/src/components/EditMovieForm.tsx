@@ -30,7 +30,7 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
     <form
       onSubmit={handleSubmit}
       className="card p-3 mb-4 shadow-sm"
-      style={{ maxWidth: '800px', fontSize: '0.9rem' }}
+      style={{ maxWidth: '1000px', fontSize: '0.9rem' }}
     >
       <h5 className="mb-3">✏️ Edit Movie</h5>
 
