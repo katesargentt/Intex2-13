@@ -27,7 +27,9 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
   const [formData, setFormData] = useState<Movie>(initialFormState);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData({
@@ -203,7 +205,12 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                 <div key={key} className="form-check">
                   <input
                     type="checkbox"
-                    className="form-check-input"
+                    className=""
+                    style={{
+                      accentColor: '#5e55aa',
+                      width: '16px',
+                      height: '16px',
+                    }}
                     id={key}
                     checked={formData[key as keyof Movie] === 1}
                     onChange={(e) =>
@@ -224,7 +231,12 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                 <div key={key} className="form-check">
                   <input
                     type="checkbox"
-                    className="form-check-input"
+                    className=""
+                    style={{
+                      accentColor: '#5e55aa',
+                      width: '16px',
+                      height: '16px',
+                    }}
                     id={key}
                     checked={formData[key as keyof Movie] === 1}
                     onChange={(e) =>
@@ -241,7 +253,25 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
               ))}
               {/* Action Buttons */}
               <div className="d-flex justify-content-start gap-2 mt-4">
-                <button type="submit" className="btn btn-sm btn-primary">
+                <button
+                  type="submit"
+                  className="btn btn-sm"
+                  style={{
+                    backgroundColor: '#5e55aa',
+                    color: 'white',
+                    fontWeight: 600,
+                    border: 'none',
+                    borderRadius: '6px',
+                    padding: '6px 16px',
+                    transition: 'background-color 0.3s ease',
+                  }}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor = '#6e68ff')
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor = '#5e55aa')
+                  }
+                >
                   Save
                 </button>
                 <button

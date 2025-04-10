@@ -92,7 +92,7 @@ const AdminPage = () => {
             <h2 className="text-center mb-4">🎬 Admin Movie Manager</h2>
             {!showForm && (
               <button
-                className="btn btn-success mb-3"
+                className="btn-custom mb-3"
                 onClick={() => setShowForm(true)}
               >
                 Add Movie
@@ -176,7 +176,7 @@ const AdminPage = () => {
                       <td>
                         <div className="d-flex flex-column gap-1">
                           <button
-                            className="btn btn-sm btn-primary"
+                            className="btn-custom mb-3"
                             onClick={() => setEditingMovie(m)}
                           >
                             ✏️ Edit

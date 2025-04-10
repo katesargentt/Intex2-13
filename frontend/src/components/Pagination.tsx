@@ -59,8 +59,18 @@ const Pagination = ({
           <button
             key={num}
             onClick={() => onPageChange(num)}
+            style={
+              num === currentPage
+                ? {
+                    backgroundColor: '#5e55aa',
+                    color: 'white',
+                    border: 'none',
+                    fontWeight: 600,
+                  }
+                : undefined
+            }
             className={`btn btn-sm ${
-              num === currentPage ? 'btn-primary' : 'btn-outline-secondary'
+              num === currentPage ? '' : 'btn-outline-secondary'
             }`}
           >
             {num}
@@ -113,7 +123,16 @@ const Pagination = ({
             className="form-control form-control-sm"
             style={{ width: '100px' }}
           />
-          <button className="btn btn-sm btn-outline-primary" onClick={handleJump}>
+          <button
+            className="btn btn-sm"
+            style={{
+              backgroundColor: '#5e55aa',
+              color: 'white',
+              border: 'none',
+              fontWeight: 600,
+            }}
+            onClick={handleJump}
+          >
             Go
           </button>
         </div>
