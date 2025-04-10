@@ -9,8 +9,12 @@ function LandingPage() {
 
   return (
     <div className="landing-container">
+      <div className="cine-title" onClick={() => navigate('/')}>
+        CineNiche
+      </div>
       <div className="landing-content">
-        <h1 className="landing-title">CineNiche</h1>
+        <h1 className="landing-title">Unlimited movies,
+        TV shows, and more</h1>
         <div className="button-group">
           <button
             className="secondary-button"
