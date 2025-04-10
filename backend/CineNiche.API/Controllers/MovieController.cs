@@ -139,6 +139,7 @@ namespace CineNiche.API.Controllers
 
             var movies = _movieContext.MoviesTitles
                 .Where(m => EF.Property<int?>(m, genre) == 1 || EF.Property<int>(m, genre) == 1)
+                .Take(25) // 👈 LIMIT TO 25 RESULTS
                 .ToList();
 
             var result = movies.Select(movie => new
