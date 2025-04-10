@@ -6,6 +6,7 @@ import { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import MovieDetailModal from '../components/MovieDetailModal';
 import GenreSelector from '../components/GenreSelector';
+import Footer from '../components/Footer';
 
 interface Movie {
   show_id: string;
@@ -144,8 +145,6 @@ const MoviePage: React.FC = () => {
     <>
       <div className="top-bar">
         <div className="left-controls">
-          <button className="genre-button">Browse by Genre</button>
-
           {/* 🔍 Search */}
           <div className="search-wrapper" ref={searchRef}>
             <button
@@ -180,21 +179,21 @@ const MoviePage: React.FC = () => {
               </div>
             )}
           </div>
+
+          <GenreSelector
+            onSelectGenre={(genre, movies: any) =>
+              setGenreSection({ genre, movies })
+            }
+            onHideGenres={() => setGenreSection(null)}
+          />
         </div>
 
         <Logout>
-          Logout <AuthorizedUser value="email" />
+          Sign Out <AuthorizedUser value="email" />
         </Logout>
       </div>
 
       <div className="movie-page">
-        <GenreSelector
-          onSelectGenre={(genre, movies: any) =>
-            setGenreSection({ genre, movies })
-          }
-          onHideGenres={() => setGenreSection(null)} // 💡 hides carousel
-        />
-
         {genreSection &&
           genreSection.movies.length > 0 &&
           renderMovieSection(
@@ -224,13 +223,11 @@ const MoviePage: React.FC = () => {
             </div>
           </div>
         </div>
-
         {/* 🌟 Recommended or Popular */}
         {renderMovieSection(
           userId ? 'Recommended for You' : 'Popular Movies',
           userId ? recommendedMovies : popularMovies
         )}
-
         {/* 🎭 Genre Recommendations */}
         {Object.keys(genreMovies).map((genre) =>
           renderMovieSection(
@@ -238,7 +235,6 @@ const MoviePage: React.FC = () => {
             genreMovies[genre]
           )
         )}
-
         {/* 🎥 Modal */}
         {modalShowId && (
           <MovieDetailModal
@@ -247,6 +243,7 @@ const MoviePage: React.FC = () => {
             onSelect={(newId) => setModalShowId(newId)}
           />
         )}
+        <Footer />;
       </div>
     </>
   );
