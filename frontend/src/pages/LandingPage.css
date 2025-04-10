@@ -147,6 +147,8 @@ footer a:hover {
     justify-content: flex-start;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    margin-right: 40px; /* 👈 Add spacing between loops */
+
   }
   .carousel::-webkit-scrollbar {
    display: none;
@@ -167,3 +169,46 @@ footer a:hover {
    inset: 0;
    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
  }
+
+ .carousel-wrapper {
+  width: 100%;
+  max-width: 700px;
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll-carousel 40s linear infinite;
+  width: max-content;
+}
+
+@keyframes scroll-carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.movie-card {
+  width: 140px;
+  height: 210px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* Keep your existing .carousel and .movie-card styles */
+.carousel {
+  display: flex;
+  gap: 20px;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
