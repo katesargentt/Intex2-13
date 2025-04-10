@@ -43,6 +43,7 @@ function LoginPage() {
       : `${BASE_URL}/login?useSessionCookies=true`;
 
     try {
+      console.log('Sending login with:', { userName: email, password });
       const response = await fetch(loginUrl, {
         method: 'POST',
         credentials: 'include',

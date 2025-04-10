@@ -19,17 +19,17 @@
 
 }
 
-.cine-title {
+.cine-title-l {
   position: absolute;
   top: 15px;
   left: 30px;
   font-size: 70px !important;/* Increased font size */
-  font-weight: 500;
+  font-weight: 600 !important;
   color: #ccd4ff;
   font-family: 'Noto Serif', serif;
   z-index: 10;
   letter-spacing: 1px;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
 
@@ -67,7 +67,7 @@ body {
 }
 
 
-.landing-title {
+.landing-title-l {
  font-size: 60px;
  font-weight: bold;
  width: 60%;
@@ -168,7 +168,7 @@ footer a:hover {
   .carousel::-webkit-scrollbar {
    display: none;
  }
- .movie-card {
+ .movie-card-l {
     position: relative;
     width: 140px; /* smaller width */
     height: 210px; /* smaller height */
@@ -178,7 +178,7 @@ footer a:hover {
     border-radius: 8px;
     overflow: hidden;
   }
-  .movie-card::after {
+  .movie-card-l::after {
    content: "";
    position: absolute;
    inset: 0;
