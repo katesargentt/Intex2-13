@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-function Logout(props: { children: React.ReactNode }) {
+function Logout(_props: { children: React.ReactNode }) {
   const navigate = useNavigate();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
