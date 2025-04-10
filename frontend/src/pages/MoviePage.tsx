@@ -176,10 +176,6 @@ const MoviePage: React.FC = () => {
                   className="search-item"
                   onClick={() => setModalShowId(movie.show_id)}
                 >
-                  <img
-                    src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.title}`}
-                    alt={movie.title}
-                  />
                   <span>{movie.title}</span>
                 </div>
               ))}
