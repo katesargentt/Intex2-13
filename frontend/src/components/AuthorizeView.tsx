@@ -20,7 +20,10 @@ function AuthorizeView(props: { children: React.ReactNode }) {
   useEffect(() => {
     async function fetchWithRetry(url: string, options: any) {
       try {
-        const response = await fetch(url, options);
+        const response = await fetch(url, {
+          ...options,
+          credentials: 'include', // Add this line to send cookies with the request
+        });
 
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.includes('application/json')) {
@@ -53,7 +56,6 @@ function AuthorizeView(props: { children: React.ReactNode }) {
 
     fetchWithRetry(`${API_BASE}/pingauth`, {
       method: 'GET',
-      credentials: 'include',
     });
   }, []);
 
