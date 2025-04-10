@@ -45,11 +45,12 @@
 
   .recommendation-row {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center; /* centers the row */
+    flex-wrap: wrap;         /* allows wrap for smaller screens */
     gap: 1rem;
-    padding: 1rem 2rem;
-    justify-content: flex-start;
+    padding: 1rem 0;
   }
+  
   
   .recommendation-card {
     width: 150px;
