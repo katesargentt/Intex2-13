@@ -348,6 +348,8 @@ html,
   position: absolute;
   width: 100%;
   z-index: 100;
+  overflow-x: visible; /* Or auto */
+  flex-wrap: nowrap;
 }
 
 .left-controls {
