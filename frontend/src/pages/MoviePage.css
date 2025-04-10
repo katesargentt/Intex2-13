@@ -377,3 +377,7 @@ html,
   background-color: #786dc3;
   color: white;
 }
+
+.genre-section {
+  margin-top: 125px; /* adjust to how far down you want it */
+}

@@ -194,12 +194,14 @@ const MoviePage: React.FC = () => {
       </div>
 
       <div className="movie-page">
-        {genreSection &&
-          genreSection.movies.length > 0 &&
-          renderMovieSection(
-            formatGenreName(genreSection.genre),
-            genreSection.movies
-          )}
+        {genreSection && genreSection.movies.length > 0 && (
+          <div className="genre-section">
+            {renderMovieSection(
+              formatGenreName(genreSection.genre),
+              genreSection.movies
+            )}
+          </div>
+        )}
         {/* 🎬 Hero Banner */}
         <div
           className="hero-banner"
