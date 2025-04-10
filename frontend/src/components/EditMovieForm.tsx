@@ -182,7 +182,12 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
               <div className="form-check">
                 <input
                   type="checkbox"
-                  className="form-check-input"
+                  className=""
+                  style={{
+                    accentColor: '#5e55aa',
+                    width: '16px',
+                    height: '16px',
+                  }}
                   id={key}
                   checked={formData[key as keyof Movie] === 1}
                   onChange={(e) =>
@@ -203,7 +208,25 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
 
       {/* Action Buttons */}
       <div className="d-flex justify-content-end gap-2 mt-4">
-        <button type="submit" className="btn btn-sm btn-primary">
+        <button
+          type="submit"
+          className="btn btn-sm"
+          style={{
+            backgroundColor: '#5e55aa',
+            color: 'white',
+            fontWeight: 600,
+            border: 'none',
+            borderRadius: '6px',
+            padding: '6px 16px',
+            transition: 'background-color 0.3s ease',
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = '#6e68ff')
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = '#5e55aa')
+          }
+        >
           Save
         </button>
         <button

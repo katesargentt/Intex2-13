@@ -13,51 +13,63 @@ function LandingPage() {
         <h1 className="landing-title">CineNiche</h1>
         <div className="button-group">
           <button
+            className="secondary-button"
+            onClick={() => navigate('/login')}
+          >
+            Sign In
+          </button>
+          <button
             className="primary-button"
             onClick={() => navigate('/register')}
           >
             Create Account
           </button>
-          <button
-            className="secondary-button"
-            onClick={() => navigate('/login')}
-          >
-            Login
-          </button>
         </div>
-        <div className="carousel">
-          <div
-            className="movie-card"
-            style={{ backgroundImage: "url('/images/Boom.jpg')" }}
-          ></div>
-          <div
-            className="movie-card"
-            style={{ backgroundImage: "url('/images/Brain on Fire.jpg')" }}
-          ></div>
-          <div
-            className="movie-card"
-            style={{ backgroundImage: "url('/images/About Time.jpg')" }}
-          ></div>
-          <div
-            className="movie-card"
-            style={{ backgroundImage: "url('/images/Bright.jpg')" }}
-          ></div>
-          <div
-            className="movie-card"
-            style={{
-              backgroundImage:
-                "url('/images/Pope Francis A Man of His Word 2.jpg')",
-            }}
-          ></div>
-          <div
-            className="movie-card"
-            style={{ backgroundImage: "url('/images/WE.jpg')" }}
-          ></div>
-          <div
-            className="movie-card"
-            style={{ backgroundImage: "url('/images/American Woman.jpg')" }}
-          ></div>
+        <div className="carousel-wrapper">
+          <div className="carousel-track">
+            {[...Array(2)].flatMap((_, i) => [
+              <div
+                key={`boom-${i}`}
+                className="movie-card"
+                style={{ backgroundImage: "url('/images/Boom.jpg')" }}
+              ></div>,
+              <div
+                key={`brain-${i}`}
+                className="movie-card"
+                style={{ backgroundImage: "url('/images/Brain on Fire.jpg')" }}
+              ></div>,
+              <div
+                key={`about-${i}`}
+                className="movie-card"
+                style={{ backgroundImage: "url('/images/About Time.jpg')" }}
+              ></div>,
+              <div
+                key={`bright-${i}`}
+                className="movie-card"
+                style={{ backgroundImage: "url('/images/Bright.jpg')" }}
+              ></div>,
+              <div
+                key={`pope-${i}`}
+                className="movie-card"
+                style={{
+                  backgroundImage:
+                    "url('/images/Pope Francis A Man of His Word 2.jpg')",
+                }}
+              ></div>,
+              <div
+                key={`we-${i}`}
+                className="movie-card"
+                style={{ backgroundImage: "url('/images/WE.jpg')" }}
+              ></div>,
+              <div
+                key={`american-${i}`}
+                className="movie-card"
+                style={{ backgroundImage: "url('/images/American Woman.jpg')" }}
+              ></div>,
+            ])}
+          </div>
         </div>
+
         <CookieConsent
           location="bottom"
           buttonText="Got it"

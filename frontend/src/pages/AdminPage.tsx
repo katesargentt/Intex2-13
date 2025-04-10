@@ -7,7 +7,7 @@ import { getCategories } from '../utils/categoryUtils';
 import './AdminPage.css';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
-import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
+import { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -92,7 +92,7 @@ const AdminPage = () => {
             <h2 className="text-center mb-4">🎬 Admin Movie Manager</h2>
             {!showForm && (
               <button
-                className="btn btn-success mb-3"
+                className="btn-custom mb-3"
                 onClick={() => setShowForm(true)}
               >
                 Add Movie
@@ -176,7 +176,7 @@ const AdminPage = () => {
                       <td>
                         <div className="d-flex flex-column gap-1">
                           <button
-                            className="btn btn-sm btn-primary"
+                            className="btn-custom mb-3"
                             onClick={() => setEditingMovie(m)}
                           >
                             ✏️ Edit

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Cors;
+using CineNiche.API.Services;
 
 
 namespace CineNiche.API.Controllers
@@ -18,7 +19,12 @@ namespace CineNiche.API.Controllers
     public class MovieController : ControllerBase
     {
         private MoviesContext _movieContext;
-        public MovieController(MoviesContext temp) => _movieContext = temp;
+        private readonly HtmlSanitizerService _sanitizer;
+        public MovieController(MoviesContext temp, HtmlSanitizerService sanitizer)
+        { 
+            _movieContext = temp;
+            _sanitizer = sanitizer;
+        }
 
         [HttpGet("AllMovies")]
         public IActionResult GetMovies(int pageSize = 10, int pageNum = 1, [FromQuery] List<string>? genres = null)
@@ -140,6 +146,15 @@ namespace CineNiche.API.Controllers
 
             newMovie.ShowId = $"s{lastNumericId + 1}";
 
+            // ✅ Sanitize key fields
+            newMovie.Title = _sanitizer.Sanitize(newMovie.Title);
+            newMovie.Description = _sanitizer.Sanitize(newMovie.Description);
+            newMovie.Director = _sanitizer.Sanitize(newMovie.Director);
+            newMovie.Cast = _sanitizer.Sanitize(newMovie.Cast);
+            newMovie.Country = _sanitizer.Sanitize(newMovie.Country);
+            newMovie.Duration = _sanitizer.Sanitize(newMovie.Duration);
+            newMovie.Type = _sanitizer.Sanitize(newMovie.Type);
+
             _movieContext.MoviesTitles.Add(newMovie);
             _movieContext.SaveChanges();
 
@@ -154,15 +169,15 @@ namespace CineNiche.API.Controllers
 
             // Standard fields
             existingMovie.ShowId = updatedMovie.ShowId;
-            existingMovie.Type = updatedMovie.Type;
-            existingMovie.Title = updatedMovie.Title;
-            existingMovie.Director = updatedMovie.Director;
-            existingMovie.Cast = updatedMovie.Cast;
-            existingMovie.Country = updatedMovie.Country;
+            existingMovie.Type = _sanitizer.Sanitize(updatedMovie.Type);
+            existingMovie.Title = _sanitizer.Sanitize(updatedMovie.Title);
+            existingMovie.Director = _sanitizer.Sanitize(updatedMovie.Director);
+            existingMovie.Cast = _sanitizer.Sanitize(updatedMovie.Cast);
+            existingMovie.Country = _sanitizer.Sanitize(updatedMovie.Country);
             existingMovie.ReleaseYear = updatedMovie.ReleaseYear;
-            existingMovie.Rating = updatedMovie.Rating;
-            existingMovie.Duration = updatedMovie.Duration;
-            existingMovie.Description = updatedMovie.Description;
+            existingMovie.Rating = _sanitizer.Sanitize(updatedMovie.Rating);
+            existingMovie.Duration = _sanitizer.Sanitize(updatedMovie.Duration);
+            existingMovie.Description = _sanitizer.Sanitize(updatedMovie.Description);
 
             // Genre flags
             existingMovie.Action = updatedMovie.Action;
@@ -253,8 +268,5 @@ namespace CineNiche.API.Controllers
 
             return Ok(result);
         }
-
-
-
     }
 }
