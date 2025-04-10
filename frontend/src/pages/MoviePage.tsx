@@ -17,6 +17,9 @@ interface Movie {
 const IMAGE_URL =
   'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
+const REC_URL =
+  'https://intexrecommender-bxeme7cmccahabet.westus-01.azurewebsites.net';
+
 const fallbackUserId = '10';
 
 const popularMovies: Movie[] = [
@@ -77,7 +80,7 @@ const MoviePage: React.FC = () => {
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5002/api/recommend/user/${finalUserId}`)
+    fetch(`${REC_URL}/api/recommend/user/${finalUserId}`)
       .then((res) => res.json())
       .then((data) => {
         setRecommendedMovies(data.recommended || []);
@@ -90,9 +93,7 @@ const MoviePage: React.FC = () => {
     e.preventDefault();
     if (searchTerm.trim() === '') return;
 
-    fetch(
-      `http://localhost:5002/api/search?q=${encodeURIComponent(searchTerm)}`
-    )
+    fetch(`${REC_URL}/api/search?q=${encodeURIComponent(searchTerm)}`)
       .then((res) => res.json())
       .then((data) => setSearchResults(data))
       .catch((err) => console.error('Search error:', err));
@@ -187,15 +188,15 @@ const MoviePage: React.FC = () => {
         </div>
 
         <GenreSelector
-          onSelectGenre={(genre, movies) =>
-            setGenreSection({ genre, movies })
-          }
+          onSelectGenre={(genre, movies) => setGenreSection({ genre, movies })}
           onHideGenres={() => setGenreSection(null)} // 💡 hides carousel
         />
 
         {genreSection?.movies?.length > 0 &&
-          renderMovieSection(formatGenreName(genreSection.genre), genreSection.movies)
-}
+          renderMovieSection(
+            formatGenreName(genreSection.genre),
+            genreSection.movies
+          )}
 
         {/* 🎬 Hero Banner */}
         <div

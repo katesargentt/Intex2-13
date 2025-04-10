@@ -6,6 +6,9 @@ const API_URL = 'https://localhost:5000/api/Movie';
 const IMAGE_URL =
   'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
+const REC_URL =
+  'https://intexrecommender-bxeme7cmccahabet.westus-01.azurewebsites.net';
+
 interface Props {
   showId: string;
   onClose: () => void;
@@ -68,7 +71,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
   }, [showId]);
 
   useEffect(() => {
-    fetch(`http://localhost:5002/api/recommend/hybrid/${showId}`)
+    fetch(`${REC_URL}/api/recommend/hybrid/${showId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log('RECOMMENDATIONS DATA:', data);
