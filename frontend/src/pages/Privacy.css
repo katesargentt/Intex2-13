@@ -1,0 +1,122 @@
+/* Container styling */
+.privacy-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1c1c1e;
+    line-height: 1.7;
+  }
+  
+  /* Heading styles */
+  .privacy-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1c1c1e;
+    margin-bottom: 10px;
+  }
+  
+  .privacy-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #2a2a2e;
+  }
+  
+  /* Paragraphs */
+  .privacy-content p {
+    margin-bottom: 16px;
+  }
+  
+  /* Lists */
+  .privacy-content ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .privacy-content li {
+    margin-bottom: 10px;
+  }
+  
+  /* CineNiche-style links */
+  .privacy-content a {
+    color: #7d8eff;
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  
+  .privacy-content a:hover {
+    text-decoration: none;
+  }
+  
+  /* Optional: subtle divider between sections */
+  .privacy-content h2::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: #eee;
+    margin: 30px 0 15px 0;
+  }
+
+  /* Header styles */
+.cine-header {
+    background-color: #121633; /* dark blue/purple background */
+    padding: 16px 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .cine-header-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #ccd4ff; /* light purple text */
+    cursor: pointer;
+    font-family: 'Noto Serif', serif;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    transition: opacity 0.2s ease;
+  }
+  
+  .cine-header-title:hover {
+    opacity: 0.85;
+  }
+
+  .cine-header {
+    background-color: #121633;
+    padding: 16px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .cine-header-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #ccd4ff;
+    cursor: pointer;
+    font-family: 'Noto Serif', serif;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    transition: opacity 0.2s ease;
+  }
+  
+  .cine-header-title:hover {
+    opacity: 0.85;
+  }
+  
+  .signin-btn {
+    background-color: #7d8eff;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .signin-btn:hover {
+    background-color: #687bff;
+  }
