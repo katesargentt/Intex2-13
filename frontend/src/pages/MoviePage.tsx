@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './MoviePage.css';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import MovieDetailModal from '../components/MovieDetailModal';
+import GenreSelector from '../components/GenreSelector';
 
 interface Movie {
   show_id: string;
@@ -51,13 +52,27 @@ const featuredMovie = {
 const MoviePage: React.FC = () => {
   const { userId } = useParams<{ userId?: string }>();
   const finalUserId = userId || fallbackUserId;
+  const navigate = useNavigate();
 
   const [modalShowId, setModalShowId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState<Movie[]>([]);
   const [recommendedMovies, setRecommendedMovies] = useState<Movie[]>([]);
-  const [genreMovies, setGenreMovies] = useState<{ [key: string]: Movie[] }>({});
+  const [genreMovies, setGenreMovies] = useState<{ [key: string]: Movie[] }>(
+    {}
+  );
+  const formatGenreName = (genre: string) => {
+    return genre
+      .replace(/([a-z])([A-Z])/g, '$1 $2') // add space between camelCase
+      .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2') // split all caps from normal caps
+      .replace(/\s+/g, ' ') // collapse multiple spaces
+      .trim(); // trim surrounding whitespace
+  };
+  const [genreSection, setGenreSection] = useState<{
+    genre: string;
+    movies: Movie[];
+  } | null>(null);
 
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -75,7 +90,9 @@ const MoviePage: React.FC = () => {
     e.preventDefault();
     if (searchTerm.trim() === '') return;
 
-    fetch(`http://localhost:5002/api/search?q=${encodeURIComponent(searchTerm)}`)
+    fetch(
+      `http://localhost:5002/api/search?q=${encodeURIComponent(searchTerm)}`
+    )
       .then((res) => res.json())
       .then((data) => setSearchResults(data))
       .catch((err) => console.error('Search error:', err));
@@ -168,6 +185,17 @@ const MoviePage: React.FC = () => {
             </div>
           )}
         </div>
+
+        <GenreSelector
+          onSelectGenre={(genre, movies) =>
+            setGenreSection({ genre, movies })
+          }
+          onHideGenres={() => setGenreSection(null)} // 💡 hides carousel
+        />
+
+        {genreSection?.movies?.length > 0 &&
+          renderMovieSection(formatGenreName(genreSection.genre), genreSection.movies)
+}
 
         {/* 🎬 Hero Banner */}
         <div
