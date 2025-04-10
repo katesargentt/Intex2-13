@@ -7,7 +7,7 @@ import { getCategories } from '../utils/categoryUtils';
 import './AdminPage.css';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
-import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
+import { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
