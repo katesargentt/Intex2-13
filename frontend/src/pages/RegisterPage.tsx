@@ -142,7 +142,7 @@ function Register() {
               type="button"
               onClick={handleLoginClick}
             >
-              Go to Login
+              Go to Sign In
             </button>
           </div>
 
