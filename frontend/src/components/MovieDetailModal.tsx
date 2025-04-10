@@ -17,6 +17,42 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
   const [recommendations, setRecommendations] = useState<Movie[]>([]);
   const [imageError, setImageError] = useState(false);
   const [imgErrorMap, setImgErrorMap] = useState<Record<string, boolean>>({});
+  const [userRating, setUserRating] = useState<number>(0);
+
+  const handleRating = async (rating: number) => {
+    setUserRating(rating);
+
+    try {
+      await fetch(`https://localhost:5000/api/Rating`, {
+        method: 'POST', // or PUT if you prefer
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          showId: showId,
+          rating: rating,
+        }),
+      });
+    } catch (err) {
+      console.error('Error submitting rating:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetch(`https://localhost:5000/api/Rating/${showId}`, {
+      credentials: 'include',
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to load rating');
+        return res.json();
+      })
+      .then((data) => {
+        setUserRating(data.rating ?? 0); // 👈 fallback to 0 if null
+      })
+      .catch((err) => {
+        console.log('No previous rating or error fetching rating:', err);
+        setUserRating(0);
+      });
+  }, [showId]);
 
   useEffect(() => {
     setMovie(null);
@@ -35,6 +71,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
     fetch(`http://localhost:5002/api/recommend/hybrid/${showId}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log('RECOMMENDATIONS DATA:', data);
         const normalized = data.map((rec: any) => ({
           ...rec,
           showId: rec.show_id, // Normalize
@@ -70,17 +107,45 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
           <div className="movie-details">
             <h1>{movie.title}</h1>
             <p className="description">{movie.description}</p>
-            <p><strong>Year:</strong> {movie.releaseYear}</p>
-            <p><strong>Duration:</strong> {movie.duration}</p>
-            <p><strong>Rating:</strong> {movie.rating}</p>
-            <p><strong>Director:</strong> {movie.director}</p>
-            <p><strong>Cast:</strong> {movie.cast}</p>
-            <p><strong>Country:</strong> {movie.country}</p>
-            <p><strong>Genres:</strong> {movie.categories?.join(', ') || 'N/A'}</p>
+            <p>
+              <strong>Year:</strong> {movie.releaseYear}
+            </p>
+            <p>
+              <strong>Duration:</strong> {movie.duration}
+            </p>
+            <p>
+              <strong>Rating:</strong> {movie.rating}
+            </p>
+            <p>
+              <strong>Director:</strong> {movie.director}
+            </p>
+            <p>
+              <strong>Cast:</strong> {movie.cast}
+            </p>
+            <p>
+              <strong>Country:</strong> {movie.country}
+            </p>
+            <p>
+              <strong>Genres:</strong> {movie.categories?.join(', ') || 'N/A'}
+            </p>
+            <div className="rating-section">
+              <strong>Rate:</strong>{' '}
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className={`star ${star <= userRating ? 'filled' : ''}`}
+                  onClick={() => handleRating(star)}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        <h4 className="movie-detail-recommendation-title">If you liked {movie.title}...</h4>
+        <h4 className="movie-detail-recommendation-title">
+          If you liked {movie.title}...
+        </h4>
         <div className="recommendation-row">
           {recommendations.map((rec, i) => (
             <div
