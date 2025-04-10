@@ -16,7 +16,7 @@ function LandingPage() {
             className="secondary-button"
             onClick={() => navigate('/login')}
           >
-            Login
+            Sign In
           </button>
           <button
             className="primary-button"
