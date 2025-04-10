@@ -22,15 +22,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MoviesContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("ConnectionStrings:MovieConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MovieConnection")));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString(name: "IdentityConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
     options.ClaimsIdentity.UserNameClaimType = ClaimTypes.Email; // Ensure email is stored in claims
+    options.SignIn.RequireConfirmedEmail = false;
 });
 
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, CustomUserClaimsPrincipalFactory>();
@@ -146,6 +147,24 @@ app.MapGet("/pingauth", async (ClaimsPrincipal user, UserManager<IdentityUser> u
         userId = movieUser?.UserId
     });
 }).RequireAuthorization();
+
+try
+{
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    Console.WriteLine(" Trying to open connection to Identity DB...");
+    await dbContext.Database.OpenConnectionAsync(); // this throws the real error
+
+    Console.WriteLine(" Connected to Identity DB successfully!");
+}
+catch (Exception ex)
+{
+    Console.WriteLine(" EXCEPTION connecting to Identity DB:");
+    Console.WriteLine(ex.ToString());
+}
+
+
 
 
 app.Run();

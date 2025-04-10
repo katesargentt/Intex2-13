@@ -13,7 +13,7 @@ public partial class MoviesRating
     [Key, Column(Order = 1)]
     public string ShowId { get; set; } = default!;
 
-    public int? Rating { get; set; }
+    public int Rating { get; set; }
 
     public MoviesUser? MoviesUser { get; set; }
     public MoviesTitle? MoviesTitle { get; set; }

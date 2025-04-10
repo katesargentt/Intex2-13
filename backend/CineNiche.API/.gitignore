@@ -11,3 +11,5 @@ bin/
 *.dgspec.json
 *.nuget.cache
 project.assets.json
+
+appsettings.json
