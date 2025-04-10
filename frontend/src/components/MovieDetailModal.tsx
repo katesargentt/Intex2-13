@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { Movie } from '../types/Movie';
 import '../pages/DetailPage.css';
 
-const API_URL = 'https://localhost:5000/api/Movie';
+const API_URL =
+  import.meta.env.MODE === 'development'
+    ? 'https://localhost:5000/api/Movie'
+    : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie';
+
 const IMAGE_URL =
   'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
 const REC_URL =
   'https://intexrecommender-bxeme7cmccahabet.westus-01.azurewebsites.net';
-
 interface Props {
   showId: string;
   onClose: () => void;
@@ -22,12 +25,18 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
   const [imgErrorMap, setImgErrorMap] = useState<Record<string, boolean>>({});
   const [userRating, setUserRating] = useState<number>(0);
 
+  
+  const BASE_URL =
+  import.meta.env.MODE === 'development'
+    ? 'https://localhost:5000'
+    : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
+
   const handleRating = async (rating: number) => {
     setUserRating(rating);
-
+  
     try {
-      await fetch(`https://localhost:5000/api/Rating`, {
-        method: 'POST', // or PUT if you prefer
+      await fetch(`${BASE_URL}/api/Rating`, {
+        method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -39,9 +48,9 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
       console.error('Error submitting rating:', err);
     }
   };
-
+  
   useEffect(() => {
-    fetch(`https://localhost:5000/api/Rating/${showId}`, {
+    fetch(`${BASE_URL}/api/Rating/${showId}`, {
       credentials: 'include',
     })
       .then((res) => {
@@ -49,7 +58,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
         return res.json();
       })
       .then((data) => {
-        setUserRating(data.rating ?? 0); // 👈 fallback to 0 if null
+        setUserRating(data.rating ?? 0);
       })
       .catch((err) => {
         console.log('No previous rating or error fetching rating:', err);

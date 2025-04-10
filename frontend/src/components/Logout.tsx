@@ -6,10 +6,15 @@ function Logout(_props: { children: React.ReactNode }) {
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    const API_BASE =
+      import.meta.env.MODE === 'development'
+        ? 'https://localhost:5000'
+        : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
+
     try {
-      const response = await fetch('https://localhost:5000/logout', {
+      const response = await fetch(`${API_BASE}/logout`, {
         method: 'POST',
-        credentials: 'include', // Ensure cookies are sent
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
