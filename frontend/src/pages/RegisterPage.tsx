@@ -28,43 +28,44 @@ function Register() {
     if (!/[A-Z]/.test(pwd)) issues.push('• At least one uppercase letter');
     if (!/[a-z]/.test(pwd)) issues.push('• At least one lowercase letter');
     if (!/[0-9]/.test(pwd)) issues.push('• At least one number');
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) issues.push('• At least one special character');
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(pwd))
+      issues.push('• At least one special character');
 
     return issues.join('\n');
   };
 
+  const BASE_URL =
+    import.meta.env.MODE === 'development'
+      ? 'https://localhost:5000'
+      : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Basic empty field check
     if (!email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
       return;
     }
 
-    // Email format
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Please enter a valid email address.');
       return;
     }
 
-    // Password match check
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
 
-    // Password strength check
     const passwordErrors = validatePassword(password);
     if (passwordErrors) {
       setError(`Password requirements:\n${passwordErrors}`);
       return;
     }
 
-    // All validations passed
     setError('');
 
-    fetch('https://localhost:5000/register', {
+    fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

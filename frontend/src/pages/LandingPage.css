@@ -19,6 +19,19 @@
 
 }
 
+.cine-title-l {
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  font-size: 70px !important;/* Increased font size */
+  font-weight: 600 !important;
+  color: #ccd4ff;
+  font-family: 'Noto Serif', serif;
+  z-index: 10;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
 
 
 body {
@@ -43,6 +56,7 @@ body {
 
 
 .landing-content {
+  margin-top: 80px;
  display: flex;
  flex-direction: column;
  justify-content: center;
@@ -53,10 +67,11 @@ body {
 }
 
 
-.landing-title {
- font-size: 140px;
- font-weight: 700;
- color: #CCD4FF;
+.landing-title-l {
+ font-size: 60px;
+ font-weight: bold;
+ width: 60%;
+ color: white;
  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
  letter-spacing: 4px;
  margin-bottom: 20px;
@@ -67,11 +82,11 @@ body {
 
 
 .button-group {
- display: flex;
- flex-direction: column;
- gap: 20px;
- align-items: center;
- justify-content: center;
+  display: flex;
+  flex-direction: row;  /* Change from column to row */
+  gap: 20px;  /* Adds space between the buttons */
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -82,7 +97,7 @@ body {
  font-size: 18px;
  font-weight: 575;
  cursor: pointer;
- width: 240px;
+ width: 190px;
  transition: all 0.3s ease;
 }
 
@@ -153,7 +168,7 @@ footer a:hover {
   .carousel::-webkit-scrollbar {
    display: none;
  }
- .movie-card {
+ .movie-card-l {
     position: relative;
     width: 140px; /* smaller width */
     height: 210px; /* smaller height */
@@ -163,11 +178,11 @@ footer a:hover {
     border-radius: 8px;
     overflow: hidden;
   }
-  .movie-card::after {
+  .movie-card-l::after {
    content: "";
    position: absolute;
    inset: 0;
-   background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+   background: rgba(0, 0, 0, 0.6) !important; /* Dark overlay */
  }
 
  .carousel-wrapper {
@@ -193,14 +208,6 @@ footer a:hover {
   }
 }
 
-.movie-card {
-  width: 140px;
-  height: 210px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
 
 /* Keep your existing .carousel and .movie-card styles */
 .carousel {
@@ -211,4 +218,5 @@ footer a:hover {
 .carousel::-webkit-scrollbar {
   display: none;
 }
+
 

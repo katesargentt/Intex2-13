@@ -24,6 +24,11 @@ function LoginPage() {
     navigate('/register');
   };
 
+  const BASE_URL =
+    import.meta.env.MODE === 'development'
+      ? 'https://localhost:5000'
+      : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -34,10 +39,11 @@ function LoginPage() {
     }
 
     const loginUrl = rememberme
-      ? 'https://localhost:5000/login?useCookies=true'
-      : 'https://localhost:5000/login?useSessionCookies=true';
+      ? `${BASE_URL}/login?useCookies=true`
+      : `${BASE_URL}/login?useSessionCookies=true`;
 
     try {
+      console.log('Sending login with:', { userName: email, password });
       const response = await fetch(loginUrl, {
         method: 'POST',
         credentials: 'include',
@@ -55,7 +61,7 @@ function LoginPage() {
         throw new Error(data?.message || 'Invalid email or password.');
       }
 
-      const authRes = await fetch('https://localhost:5000/pingauth', {
+      const authRes = await fetch(`${BASE_URL}/pingauth`, {
         credentials: 'include',
       });
 

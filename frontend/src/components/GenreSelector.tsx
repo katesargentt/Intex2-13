@@ -20,11 +20,16 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const BASE_URL =
+    import.meta.env.MODE === 'development'
+      ? 'https://localhost:5000'
+      : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
+
   useEffect(() => {
     if (showGenres && genres.length === 0) {
       setLoading(true);
       setError('');
-      fetch('https://localhost:5000/api/Movie/GetMovieGenres', {
+      fetch(`${BASE_URL}/api/Movie/GetMovieGenres`, {
         credentials: 'include',
       })
         .then((res) => {
@@ -42,7 +47,7 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
 
   const handleGenreClick = (genre: string) => {
     fetch(
-      `https://localhost:5000/api/Movie/GetMoviesByGenre/${encodeURIComponent(genre)}`,
+      `${BASE_URL}/api/Movie/GetMoviesByGenre/${encodeURIComponent(genre)}`,
       {
         credentials: 'include',
       }
@@ -51,7 +56,13 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         return res.json();
       })
-      .then((movies) => onSelectGenre(genre, movies))
+      .then((movies) => {
+        const normalized = movies.map((m: any) => ({
+          show_id: m.showId ?? m.show_id,
+          title: m.title,
+        }));
+        onSelectGenre(genre, normalized);
+      })
       .catch((err) => {
         console.error('❌ Failed to fetch movies by genre:', err);
       });

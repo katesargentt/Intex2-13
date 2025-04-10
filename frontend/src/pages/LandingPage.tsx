@@ -9,8 +9,11 @@ function LandingPage() {
 
   return (
     <div className="landing-container">
+      <div className="cine-title-l" onClick={() => navigate('/')}>
+        CineNiche
+      </div>
       <div className="landing-content">
-        <h1 className="landing-title">CineNiche</h1>
+        <h1 className="landing-title-l">Unlimited movies, TV shows, and more</h1>
         <div className="button-group">
           <button
             className="secondary-button"
@@ -30,27 +33,27 @@ function LandingPage() {
             {[...Array(2)].flatMap((_, i) => [
               <div
                 key={`boom-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{ backgroundImage: "url('/images/Boom.jpg')" }}
               ></div>,
               <div
                 key={`brain-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{ backgroundImage: "url('/images/Brain on Fire.jpg')" }}
               ></div>,
               <div
                 key={`about-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{ backgroundImage: "url('/images/About Time.jpg')" }}
               ></div>,
               <div
                 key={`bright-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{ backgroundImage: "url('/images/Bright.jpg')" }}
               ></div>,
               <div
                 key={`pope-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{
                   backgroundImage:
                     "url('/images/Pope Francis A Man of His Word 2.jpg')",
@@ -58,12 +61,12 @@ function LandingPage() {
               ></div>,
               <div
                 key={`we-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{ backgroundImage: "url('/images/WE.jpg')" }}
               ></div>,
               <div
                 key={`american-${i}`}
-                className="movie-card"
+                className="movie-card-l"
                 style={{ backgroundImage: "url('/images/American Woman.jpg')" }}
               ></div>,
             ])}

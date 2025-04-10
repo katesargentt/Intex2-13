@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './MoviePage.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import MovieDetailModal from '../components/MovieDetailModal';
 import GenreSelector from '../components/GenreSelector';
+import Footer from '../components/Footer';
 
 interface Movie {
   show_id: string;
@@ -46,16 +47,16 @@ const popularMovies: Movie[] = [
 ];
 
 const featuredMovie = {
-  title: 'We Live in Time',
+  title: 'Stranger Things 4',
   description:
-    'A heartwarming romance that unfolds over decades, revealing the beauty and pain of love.',
-  image: 'WE.jpg',
+    'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl. ',
+  tagline: 'One summer can change everything.',
+  image: 'stzoomedout.webp', // replace with whatever filename you're using
 };
 
 const MoviePage: React.FC = () => {
   const { userId } = useParams<{ userId?: string }>();
   const finalUserId = userId || fallbackUserId;
-  const navigate = useNavigate();
 
   const [modalShowId, setModalShowId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -142,62 +143,65 @@ const MoviePage: React.FC = () => {
 
   return (
     <>
-      <span>
-        <Logout>
-          Logout <AuthorizedUser value="email" />
-        </Logout>
-      </span>
-      <div className="movie-page">
-        {/* 🔍 Search */}
-        <div className="search-wrapper" ref={searchRef}>
-          <button
-            className="search-icon-btn"
-            onClick={() => setShowSearch((prev) => !prev)}
-          >
-            <Search size={22} color="white" />
-          </button>
-          {showSearch && (
-            <form onSubmit={handleSearch}>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-bar"
-                autoFocus
-              />
-            </form>
-          )}
-          {searchResults.length > 0 && (
-            <div className="search-dropdown wide">
-              {searchResults.map((movie) => (
-                <div
-                  key={movie.show_id}
-                  className="search-item"
-                  onClick={() => setModalShowId(movie.show_id)}
-                >
-                  <img
-                    src={`/images/movies/${encodeURIComponent('Movie Posters')}/${movie.title}`}
-                    alt={movie.title}
-                  />
-                  <span>{movie.title}</span>
-                </div>
-              ))}
-            </div>
-          )}
+      <div className="top-bar">
+        <div className="left-controls">
+          {/* 🔍 Search */}
+          <div className="search-wrapper" ref={searchRef}>
+            <button
+              className="search-icon-btn"
+              onClick={() => setShowSearch((prev) => !prev)}
+            >
+              <Search size={22} color="white" />
+            </button>
+            {showSearch && (
+              <form onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="search-bar"
+                  autoFocus
+                />
+              </form>
+            )}
+            {searchResults.length > 0 && (
+              <div className="search-dropdown wide">
+                {searchResults.map((movie) => (
+                  <div
+                    key={movie.show_id}
+                    className="search-item"
+                    onClick={() => setModalShowId(movie.show_id)}
+                  >
+                    <span>{movie.title}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <GenreSelector
+            onSelectGenre={(genre, movies: any) =>
+              setGenreSection({ genre, movies })
+            }
+            onHideGenres={() => setGenreSection(null)}
+          />
         </div>
 
-        <GenreSelector
-          onSelectGenre={(genre, movies) => setGenreSection({ genre, movies })}
-          onHideGenres={() => setGenreSection(null)} // 💡 hides carousel
-        />
+        <Logout>
+          Sign Out <AuthorizedUser value="email" />
+        </Logout>
+      </div>
 
-        {genreSection?.movies?.length > 0 &&
-          renderMovieSection(
-            formatGenreName(genreSection.genre),
-            genreSection.movies
-          )}
-
+      <div className="movie-page">
+        {genreSection && genreSection.movies.length > 0 && (
+          <div className="genre-section">
+            {renderMovieSection(
+              formatGenreName(genreSection.genre),
+              genreSection.movies
+            )}
+          </div>
+        )}
         {/* 🎬 Hero Banner */}
         <div
           className="hero-banner"
@@ -205,20 +209,27 @@ const MoviePage: React.FC = () => {
         >
           <div className="hero-content">
             <h1 className="hero-title">{featuredMovie.title}</h1>
+            {featuredMovie.tagline && (
+              <p className="hero-tagline">{featuredMovie.tagline}</p>
+            )}
             <p className="hero-description">{featuredMovie.description}</p>
+
             <div className="hero-buttons">
               <button className="hero-btn">Play</button>
-              <button className="hero-btn secondary">More Info</button>
+              <button
+                className="hero-btn secondary"
+                onClick={() => setModalShowId('s3686')}
+              >
+                More Info
+              </button>
             </div>
           </div>
         </div>
-
         {/* 🌟 Recommended or Popular */}
         {renderMovieSection(
           userId ? 'Recommended for You' : 'Popular Movies',
           userId ? recommendedMovies : popularMovies
         )}
-
         {/* 🎭 Genre Recommendations */}
         {Object.keys(genreMovies).map((genre) =>
           renderMovieSection(
@@ -226,7 +237,6 @@ const MoviePage: React.FC = () => {
             genreMovies[genre]
           )
         )}
-
         {/* 🎥 Modal */}
         {modalShowId && (
           <MovieDetailModal
@@ -235,6 +245,7 @@ const MoviePage: React.FC = () => {
             onSelect={(newId) => setModalShowId(newId)}
           />
         )}
+        <Footer />;
       </div>
     </>
   );

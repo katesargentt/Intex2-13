@@ -20,12 +20,12 @@ function AuthorizeView(props: { children: React.ReactNode }) {
   useEffect(() => {
     async function fetchWithRetry(url: string, options: any) {
       try {
-        const response = await fetch(url, options);
-        //console.log('AuthorizeView: Raw Response:', response);
+        const response = await fetch(url, {
+          ...options,
+          credentials: 'include', // Add this line to send cookies with the request
+        });
 
         const contentType = response.headers.get('content-type');
-
-        // Ensure response is JSON before parsing
         if (!contentType || !contentType.includes('application/json')) {
           throw new Error('Invalid response format from server');
         }
@@ -36,7 +36,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
           setUser({
             email: data.email,
             roles: data.roles,
-            userId: data.userId ?? null, // Added userId to the state
+            userId: data.userId ?? null,
           });
           setAuthorized(true);
         } else {
@@ -49,9 +49,13 @@ function AuthorizeView(props: { children: React.ReactNode }) {
       }
     }
 
-    fetchWithRetry('https://localhost:5000/pingauth', {
+    const API_BASE =
+      import.meta.env.MODE === 'development'
+        ? 'https://localhost:5000'
+        : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
+
+    fetchWithRetry(`${API_BASE}/pingauth`, {
       method: 'GET',
-      credentials: 'include',
     });
   }, []);
 
