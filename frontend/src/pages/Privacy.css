@@ -1,18 +1,25 @@
+/* Light purple background for the entire page */
+body,
+html {
+  background-color: #1e1a3d; /* soft dark-purple */
+  margin: 0;
+  padding: 0;
+}
+
 /* Container styling */
 .privacy-content {
   max-width: 800px;
   margin: 40px auto;
-  /* padding: 0 20px; */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #1c1c1e;
   line-height: 1.7;
-  background-color: #ffffff; /* white background */
+  background-color: #ffffff; /* stays white */
   border-radius: 12px;
   padding: 40px 30px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading styles */
+/* Headings */
 .privacy-content h1 {
   font-size: 2.5rem;
   font-weight: 700;
@@ -54,7 +61,7 @@
   text-decoration: none;
 }
 
-/* Optional: subtle divider between sections */
+/* Subtle divider before h2 sections */
 .privacy-content h2::before {
   content: '';
   display: block;
@@ -63,29 +70,7 @@
   margin: 30px 0 15px 0;
 }
 
-/* Header styles */
-.cine-header {
-  background-color: #121633; /* dark blue/purple background */
-  padding: 16px 30px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.cine-header-title {
-  font-size: 28px;
-  font-weight: 600;
-  color: #ccd4ff; /* light purple text */
-  cursor: pointer;
-  font-family: 'Noto Serif', serif;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-  transition: opacity 0.2s ease;
-}
-
-.cine-header-title:hover {
-  opacity: 0.85;
-}
-
+/* Header bar */
 .cine-header {
   background-color: #121633;
   padding: 16px 30px;
@@ -95,6 +80,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* CineNiche logo text */
 .cine-header-title {
   font-size: 28px;
   font-weight: 600;
@@ -109,6 +95,7 @@
   opacity: 0.85;
 }
 
+/* Sign In button */
 .signin-btn {
   background-color: #7d8eff;
   color: #fff;
@@ -124,12 +111,3 @@
 .signin-btn:hover {
   background-color: #687bff;
 }
-
-main {
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-}
-
-
-
