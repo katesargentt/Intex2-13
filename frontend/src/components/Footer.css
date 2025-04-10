@@ -1,7 +1,12 @@
 .cine-footer {
   width: 100vw; /* full viewport width */
-  padding: 40px 0; /* ⬆️ taller footer */
-  background: linear-gradient(to right, #1a1a1a, #3a3a3a, #1a1a1a); /* 🎭 deeper, dramatic gradient */
+  padding: 30px 0; /* ⬆️ taller footer */
+  background: linear-gradient(
+    to right,
+    #1a1a1a,
+    #3a3a3a,
+    #1a1a1a
+  ); /* 🎭 deeper, dramatic gradient */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,7 +27,6 @@
   cursor: pointer;
   transition: color 0.2s ease;
 }
-
 
 .footer-links a:hover {
   color: #ffffff;
