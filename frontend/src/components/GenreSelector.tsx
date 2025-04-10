@@ -56,7 +56,13 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
         if (!res.ok) throw new Error(`HTTP error ${res.status}`);
         return res.json();
       })
-      .then((movies) => onSelectGenre(genre, movies))
+      .then((movies) => {
+        const normalized = movies.map((m: any) => ({
+          show_id: m.showId ?? m.show_id,
+          title: m.title,
+        }));
+        onSelectGenre(genre, normalized);
+      })
       .catch((err) => {
         console.error('❌ Failed to fetch movies by genre:', err);
       });
