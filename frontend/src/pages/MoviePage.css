@@ -28,7 +28,7 @@ html,
   width: 100vw;
   height: 85vh;
   background-size: cover;
-  background-position: center 35%;
+  background-position: center 110%;
   background-repeat: no-repeat;
   display: flex;
   align-items: flex-end;
@@ -43,8 +43,7 @@ html,
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, #0e0e2d,
-  #1c1c2f, transparent);
+  background: linear-gradient(to top, #0e0e2d, #1c1c2f, transparent);
   z-index: 1;
 }
 
@@ -56,7 +55,6 @@ html,
   max-width: 800px;
   width: 100%;
 }
-
 
 .hero-title {
   font-size: 72px;
@@ -74,7 +72,6 @@ html,
   margin-bottom: 1rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-
 
 .hero-buttons {
   display: flex;
@@ -112,7 +109,6 @@ html,
   border: 2px solid #786dc3;
 }
 
-
 /* ===== Section Titles ===== */
 .section-title {
   font-size: 1.8rem;
@@ -120,11 +116,10 @@ html,
   margin: 2rem 0 1rem 2rem;
   color: #f5f5f5; /* Match hero title */
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Match hero text */
-  border-left: 5px solid #CCD4FF;
+  border-left: 5px solid #ccd4ff;
   padding-left: 0.75rem;
   font-family: 'Noto Serif', serif; /* Optional: matches hero title */
 }
-
 
 /* ===== Movie Rows ===== */
 .movie-row {
@@ -328,4 +323,54 @@ html,
   gap: 16px;
   padding: 20px 0;
   margin-bottom: 60px; /* 👈 give space underneath */
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  color: #f5f5f5;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.left-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.genre-button {
+  background-color: transparent;
+  color: #ccd4ff;
+  font-weight: 600;
+  border: 2px solid #786dc3;
+  border-radius: 20px;
+  padding: 0.25rem 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  height: 40px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.genre-button:hover {
+  background-color: #786dc3;
+  color: white;
 }
