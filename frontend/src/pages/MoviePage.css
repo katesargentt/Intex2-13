@@ -321,3 +321,11 @@ html,
     opacity: 1;
   }
 }
+
+.movie-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 20px 0;
+  margin-bottom: 60px; /* 👈 give space underneath */
+}

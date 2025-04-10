@@ -90,31 +90,80 @@ namespace CineNiche.API.Controllers
         {
             var genres = new List<string>();
 
-            // Get the raw connection from your existing EF Core context
-            var connection = _movieContext.Database.GetDbConnection();
+            var nonGenreColumns = new HashSet<string>
+            {
+                "ShowId", "Type", "Title", "Director", "Cast", "Country",
+                "ReleaseYear", "Rating", "Duration", "Description", "Ratings"
+            };
 
+            var connection = _movieContext.Database.GetDbConnection();
             connection.Open();
 
             using (var command = connection.CreateCommand())
             {
                 command.CommandText = "PRAGMA table_info(movies_titles);";
-
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         var columnName = reader.GetString(1);
 
-                        // If first character is uppercase, consider it a genre
-                        if (!string.IsNullOrEmpty(columnName) && char.IsUpper(columnName[0]))
+                        if (!string.IsNullOrEmpty(columnName) &&
+                            char.IsUpper(columnName[0]) &&
+                            !nonGenreColumns.Contains(columnName))
                         {
                             genres.Add(columnName);
                         }
                     }
                 }
             }
+
             return Ok(genres);
         }
+
+
+        
+        [HttpGet("GetMoviesByGenre/{genre}")]
+        public IActionResult GetMoviesByGenre(string genre)
+        {
+            var validGenres = _movieContext.Model
+                .FindEntityType(typeof(MoviesTitle))
+                .GetProperties()
+                .Select(p => p.Name)
+                .ToList();
+
+            if (!validGenres.Contains(genre))
+            {
+                return BadRequest($"Invalid genre: {genre}");
+            }
+
+            var movies = _movieContext.MoviesTitles
+                .Where(m => EF.Property<int?>(m, genre) == 1 || EF.Property<int>(m, genre) == 1)
+                .ToList();
+
+            var result = movies.Select(movie => new
+            {
+                movie.ShowId,
+                movie.Type,
+                movie.Title,
+                movie.Director,
+                movie.Cast,
+                movie.Country,
+                movie.ReleaseYear,
+                movie.Rating,
+                movie.Duration,
+                movie.Description,
+                Categories = movie.GetType()
+                    .GetProperties()
+                    .Where(p => p.PropertyType == typeof(int?) && (int?)p.GetValue(movie) == 1)
+                    .Select(p => p.Name)
+                    .ToList()
+            });
+
+            return Ok(result);
+        }
+
+
 
         [HttpGet("SearchMovies")]
         public IActionResult SearchMovies(string query)
