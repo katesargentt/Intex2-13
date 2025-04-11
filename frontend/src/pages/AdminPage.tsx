@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../components/AuthorizeView'; // adjust path as needed
 
+// AdminPage component for managing movies
+// It includes a table for displaying movies, pagination, and forms for adding/editing movies.
 const AdminPage = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [pageSize, setPageSize] = useState<number>(10);
@@ -23,6 +25,8 @@ const AdminPage = () => {
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
   const [showForm, setShowForm] = useState(false);
 
+  // UserCheckWrapper component to check if the user is an administrator
+  // If not, redirect to the movies page
   const UserCheckWrapper = ({ children }: { children: React.ReactNode }) => {
     const user = useContext(UserContext);
 
@@ -33,6 +37,7 @@ const AdminPage = () => {
     return <>{children}</>;
   };
 
+  // Function to fetch movies from the API
   useEffect(() => {
     const loadMovies = async () => {
       try {
@@ -61,6 +66,8 @@ const AdminPage = () => {
     loadMovies();
   }, [pageSize, pageNum]);
 
+  // Function to handle movie deletion
+  // It prompts the user for confirmation before deleting a movie
   const handleDelete = async (showId: string) => {
     const confirmDelete = window.confirm(
       'Are you sure you want to delete this Movie?'
@@ -73,11 +80,18 @@ const AdminPage = () => {
       alert('Failed to delete Movie. Please try again');
     }
   };
+
+  // if loading is true, show loading message
+  // if error is not null, show error message
+  // if editingMovie is not null, log the movie being edited
   if (loading) return <p>loading movies...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
   if (editingMovie) {
     console.log(editingMovie);
   }
+  // If the user is not an administrator, redirect to the movies page
+  // shows the movies and allows the user to add/edit movies and delete
+  // with pagination
   return (
     <>
       <UserCheckWrapper>

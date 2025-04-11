@@ -8,6 +8,8 @@ import MovieDetailModal from '../components/MovieDetailModal';
 import GenreSelector from '../components/GenreSelector';
 import Footer from '../components/Footer';
 
+/// MoviePage page for displaying movies and recommendations
+/// It includes a search bar, genre selector, and a hero banner.
 interface Movie {
   show_id: string;
   title: string;
@@ -15,6 +17,7 @@ interface Movie {
   genre?: string;
 }
 
+// Base URL for images and recommendations
 const IMAGE_URL =
   'https://cinenicheimages.blob.core.windows.net/movieposters/Movie Posters/Movie Posters';
 
@@ -23,6 +26,7 @@ const REC_URL =
 
 const fallbackUserId = '10';
 
+// Sample data for popular movies (for demonstration purposes)
 const popularMovies: Movie[] = [
   { show_id: 's34', title: 'Squid Game' },
   { show_id: 's290', title: 'The Crowned Clown' },
@@ -46,6 +50,7 @@ const popularMovies: Movie[] = [
   { show_id: 's2191', title: 'The Umbrella Academy' },
 ];
 
+// Sample data for a featured movie (for demonstration purposes)
 const featuredMovie = {
   title: 'Stranger Things 4',
   description:
@@ -66,6 +71,8 @@ const MoviePage: React.FC = () => {
   const [genreMovies, setGenreMovies] = useState<{ [key: string]: Movie[] }>(
     {}
   );
+
+  // Function to format genre names for display
   const formatGenreName = (genre: string) => {
     return genre
       .replace(/([a-z])([A-Z])/g, '$1 $2') // add space between camelCase
@@ -80,6 +87,7 @@ const MoviePage: React.FC = () => {
 
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Fetch popular movies and recommendations on component mount
   useEffect(() => {
     fetch(`${REC_URL}/api/recommend/user/${finalUserId}`)
       .then((res) => res.json())
@@ -90,6 +98,7 @@ const MoviePage: React.FC = () => {
       .catch((err) => console.error('Error fetching recommendations:', err));
   }, [finalUserId]);
 
+  // handle the search functionality and search api for the results
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim() === '') return;
@@ -100,6 +109,7 @@ const MoviePage: React.FC = () => {
       .catch((err) => console.error('Search error:', err));
   };
 
+  // Clear search results when the search term changes
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -117,6 +127,7 @@ const MoviePage: React.FC = () => {
     };
   }, []);
 
+  // Clear search results when the modal is closed
   const renderMovieSection = (title: string, movies: Movie[]) => (
     <>
       <h2 className="section-title">{title}</h2>
@@ -141,6 +152,7 @@ const MoviePage: React.FC = () => {
     </>
   );
 
+  // Render the movie page with sections for genres and recommendations
   return (
     <>
       <div className="top-bar">

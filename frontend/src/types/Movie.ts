@@ -1,3 +1,4 @@
+// this file shows the structure of a movie object
 export interface Movie {
   showId: string;
   type: string;

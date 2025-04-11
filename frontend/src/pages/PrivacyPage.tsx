@@ -3,6 +3,7 @@ import Footer from '../components/Footer';
 import './Privacy.css';
 import { useNavigate } from 'react-router-dom';
 
+/// PrivacyPage page for displaying the privacy policy
 function PrivacyPage() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -13,6 +14,7 @@ function PrivacyPage() {
     return () => document.body.classList.remove('static-body');
   }, []);
 
+  // dsiplay the privacy policy
   return (
     <>
       {/* Custom Header */}

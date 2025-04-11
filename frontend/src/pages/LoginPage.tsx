@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'; // ✅ Make sure this is imported
 
+// LoginPage component for user authentication
 function LoginPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -9,6 +10,7 @@ function LoginPage() {
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
+  // Handle input changes for email, password, and remember me checkbox
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, type, checked, value } = e.target;
     if (type === 'checkbox') {
@@ -24,6 +26,7 @@ function LoginPage() {
     navigate('/register');
   };
 
+  // Base URL for API requests
   const BASE_URL =
     import.meta.env.MODE === 'development'
       ? 'https://localhost:5000'
@@ -38,6 +41,7 @@ function LoginPage() {
       return;
     }
 
+    // Determine the login URL based on the remember me checkbox
     const loginUrl = rememberme
       ? `${BASE_URL}/login?useCookies=true`
       : `${BASE_URL}/login?useSessionCookies=true`;
@@ -61,12 +65,14 @@ function LoginPage() {
         throw new Error(data?.message || 'Invalid email or password.');
       }
 
+      // Check if the login was successful
       const authRes = await fetch(`${BASE_URL}/pingauth`, {
         credentials: 'include',
       });
 
       const userInfo = await authRes.json();
 
+      // Check if the user is authenticated
       if (userInfo.userId != null) {
         navigate(`/movies/${userInfo.userId}`);
       } else {
@@ -78,6 +84,7 @@ function LoginPage() {
     }
   };
 
+  // render the login form
   return (
     <div className="login-wrapper">
       <div className="cine-title" onClick={() => navigate('/')}>

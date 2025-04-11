@@ -1,5 +1,7 @@
 import { Movie } from '../types/Movie';
 
+// This file contains a mapping of movie categories to their display names
+// and a function to extract categories from a movie object.
 export const CATEGORY_MAP: Record<string, string> = {
   action: 'Action',
   adventure: 'Adventure',

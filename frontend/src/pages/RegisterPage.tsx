@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
 
+/// Register component for user registration
+/// It includes email and password validation, and handles form submission.
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,11 +36,13 @@ function Register() {
     return issues.join('\n');
   };
 
+  // Base URL for API requests
   const BASE_URL =
     import.meta.env.MODE === 'development'
       ? 'https://localhost:5000'
       : 'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net';
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -65,6 +69,7 @@ function Register() {
 
     setError('');
 
+    // Send registration request to the server
     fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -83,6 +88,7 @@ function Register() {
       });
   };
 
+  /// Render the registration form
   return (
     <div className="register-wrapper">
       <div className="cine-title" onClick={() => navigate('/')}>

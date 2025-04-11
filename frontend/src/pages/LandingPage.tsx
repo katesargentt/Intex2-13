@@ -1,12 +1,14 @@
 import Footer from '../components/Footer';
-//import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 import CookieConsent from 'react-cookie-consent';
 
+/// LandingPage component for displaying the landing page of the application
+/// It includes a title, buttons for sign-in and account creation, and a carousel of movie posters.
 function LandingPage() {
   const navigate = useNavigate();
 
+  // Function to handle navigation to the login page
   return (
     <div className="landing-container">
       <div className="cine-title-l" onClick={() => navigate('/')}>
