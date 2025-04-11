@@ -1,3 +1,4 @@
+//logout component, sits on the top of the page, allows user to logout of their account
 import { useNavigate } from 'react-router-dom';
 
 function Logout(_props: { children: React.ReactNode }) {

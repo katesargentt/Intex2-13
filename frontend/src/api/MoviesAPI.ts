@@ -5,8 +5,7 @@ interface FetchMoviesResponse {
   totalNumMovies: number;
 }
 
-//const API_URL =
-//'https://cineniche-2-13-backend-f9bef5h7ftbscahz.eastus-01.azurewebsites.net/api/Movie'; //api url
+
 const API_URL = 
   import.meta.env.MODE === 'development'
     ? 'https://localhost:5000/api/Movie'
@@ -33,7 +32,7 @@ export const fetchMovies = async (
         },
       }
     );
-
+ //error handling
     if (!response.ok) {
       throw new Error('Failed to fetch movies');
     }
@@ -46,6 +45,7 @@ export const fetchMovies = async (
       movies: result.movies,
       totalNumMovies: result.totalNumMovies,
     };
+    //error handling
   } catch (error) {
     console.error('Error fetching movies:', error);
     return undefined;
@@ -57,7 +57,7 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
   try {
     const response = await fetch(`${API_URL}/AddMovie`, {
       method: 'POST',
-      credentials: 'include', // 👈 only if cookies/session auth are used
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -108,7 +108,7 @@ export const deleteMovie = async (showId: string): Promise<void> => {
   try {
     const response = await fetch(`${API_URL}/DeleteMovie/${showId}`, {
       method: 'DELETE',
-      credentials: 'include', // 👈 only if you need cookie/session auth
+      credentials: 'include',
     });
 
     if (!response.ok) {

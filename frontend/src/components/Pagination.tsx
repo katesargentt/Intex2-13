@@ -1,3 +1,4 @@
+//Pagination component for Admin page
 import { useState } from 'react';
 
 interface PaginationProps {
@@ -17,6 +18,7 @@ const Pagination = ({
 }: PaginationProps) => {
   const [jumpPage, setJumpPage] = useState('');
 
+  //jumps to a specific page
   const handleJump = () => {
     const num = parseInt(jumpPage);
     if (!isNaN(num) && num >= 1 && num <= totalPages) {
@@ -24,6 +26,7 @@ const Pagination = ({
     }
   };
 
+//only shows 5 pages 
   const getVisiblePages = () => {
     const pages = [];
     const start = Math.max(currentPage - 2, 1);
@@ -36,6 +39,7 @@ const Pagination = ({
     return pages;
   };
 
+  //returns the actual buttons for the pagination, including first, previous, page numbers, next, and last
   return (
     <div className="w-full d-flex flex-column align-items-center mt-4">
       <div className="d-flex flex-wrap gap-2 align-items-center justify-content-center mb-3">
@@ -94,6 +98,7 @@ const Pagination = ({
         </button>
       </div>
 
+{/* allows the user to determine how many results they want per page: 5, 10, 20. Recalcualtes pages based on number per page*/}
       <div className="d-flex gap-3 align-items-center">
         <label className="form-label m-0">
           Results per page:
