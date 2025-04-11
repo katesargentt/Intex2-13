@@ -1,3 +1,4 @@
+//footer component, used at the bottom of pages
 import { useNavigate } from 'react-router-dom';
 import './Footer.css';
 
@@ -19,6 +20,7 @@ function Footer() {
         <a href="#">Terms of Service</a>
         <a href="#">Support</a>
         <a href="#">Contact</a>
+        {/* admin page link only shows up in user is authenticated as an admin */}
         <a
           href="#"
           onClick={(e) => {

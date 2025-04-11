@@ -1,3 +1,4 @@
+//Movie detail page. Shows to the user when they click on a movie to show the details
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/Movie';
 import '../pages/DetailPage.css';
@@ -33,7 +34,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
 
   const handleRating = async (rating: number) => {
     setUserRating(rating);
-  
+  //error handling
     try {
       await fetch(`${BASE_URL}/api/Rating`, {
         method: 'POST',
@@ -53,6 +54,8 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
     fetch(`${BASE_URL}/api/Rating/${showId}`, {
       credentials: 'include',
     })
+
+    //error handling
       .then((res) => {
         if (!res.ok) throw new Error('Failed to load rating');
         return res.json();
@@ -79,6 +82,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
       .catch((err) => console.error('Error loading movie:', err));
   }, [showId]);
 
+  //load the recommendations based on the selected movie
   useEffect(() => {
     fetch(`${REC_URL}/api/recommend/hybrid/${showId}`)
       .then((res) => res.json())
@@ -95,6 +99,8 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
 
   if (!movie) return <p>Loading...</p>;
 
+  //returns the modal that pops up above the MoviePage that allows a logged in user to view the movie details, rate that movie,
+  //and navigate to other recommended movies
   return (
     <div className="modal-backdrop">
       <div className="modal-container">
@@ -140,6 +146,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
             <p>
               <strong>Genres:</strong> {movie.categories?.join(', ') || 'N/A'}
             </p>
+            {/* allows the user to rate a movie 1-5 stars. Saves the rating to the movie_rating database */}
             <div className="rating-section">
               <strong>Rate:</strong>{' '}
               {[1, 2, 3, 4, 5].map((star) => (
@@ -155,6 +162,7 @@ const MovieDetailModal: React.FC<Props> = ({ showId, onClose, onSelect }) => {
           </div>
         </div>
 
+        {/* shows the recommended movies and allows the user to navigate to other movie details */}
         <h4 className="movie-detail-recommendation-title">
           If you liked {movie.title}...
         </h4>

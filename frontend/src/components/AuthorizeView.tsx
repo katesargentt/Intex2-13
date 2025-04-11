@@ -1,3 +1,4 @@
+//authorize logged in users
 import React, { useState, useEffect, createContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -6,7 +7,7 @@ export const UserContext = createContext<User | null>(null);
 interface User {
   email: string;
   roles: string[];
-  userId: number | null; // Added userId property
+  userId: number | null;
 }
 
 function AuthorizeView(props: { children: React.ReactNode }) {
@@ -22,7 +23,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
       try {
         const response = await fetch(url, {
           ...options,
-          credentials: 'include', // Add this line to send cookies with the request
+          credentials: 'include', // send cookies with the request
         });
 
         const contentType = response.headers.get('content-type');
@@ -31,7 +32,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         }
 
         const data = await response.json();
-
+//error handling
         if (data.email && Array.isArray(data.roles)) {
           setUser({
             email: data.email,
@@ -48,7 +49,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         setLoading(false);
       }
     }
-
+//constant URL
     const API_BASE =
       import.meta.env.MODE === 'development'
         ? 'https://localhost:5000'

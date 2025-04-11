@@ -1,3 +1,4 @@
+//genre selecter component. Allows the user to filter by genre
 import React, { useEffect, useState } from 'react';
 import './GenreSelector.css';
 
@@ -32,6 +33,7 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
       fetch(`${BASE_URL}/api/Movie/GetMovieGenres`, {
         credentials: 'include',
       })
+      //error handling
         .then((res) => {
           if (!res.ok) throw new Error(`HTTP error ${res.status}`);
           return res.json();
@@ -45,6 +47,7 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
     }
   }, [showGenres]);
 
+  //shows the genre buttons when user clicks
   const handleGenreClick = (genre: string) => {
     fetch(
       `${BASE_URL}/api/Movie/GetMoviesByGenre/${encodeURIComponent(genre)}`,
@@ -86,6 +89,7 @@ const GenreSelector: React.FC<GenreSelectorProps> = ({
     setShowGenres(!showGenres);
   };
 
+  //lets user select genre, shows the movies, and allows the user to click on a filtered movie to see the details
   return (
     <div className="genre-selector">
       <button onClick={toggleGenres} className="genre-toggle">

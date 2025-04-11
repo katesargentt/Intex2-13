@@ -1,3 +1,4 @@
+//new movie form. Allows an admin user to create a new movie that is stored to the database
 import { useState } from 'react';
 import { Movie } from '../types/Movie';
 import { addMovie } from '../api/MoviesAPI';
@@ -38,6 +39,7 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
     });
   };
 
+  //submits the movie to the database
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Submitting movie:', formData);
@@ -50,6 +52,7 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
   const leftGenres = genreEntries.slice(0, mid);
   const rightGenres = genreEntries.slice(mid);
 
+  //returns the modal form that hovers above the Admin page. Allows Admin to input desired new movie details
   return (
     <form
       onSubmit={handleSubmit}
@@ -77,6 +80,7 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
             <label className="form-label">
               <strong>Type</strong>
             </label>
+            {/* type drop down menu */}
             <select
               name="type"
               className="form-select form-select-sm"
@@ -141,6 +145,7 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
               onChange={handleChange}
             />
           </div>
+          {/* rating drop down menu */}
           <div className="mb-2">
             <label className="form-label">
               <strong>Rating</strong>

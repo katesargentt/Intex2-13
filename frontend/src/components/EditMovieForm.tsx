@@ -1,3 +1,4 @@
+//edit movie component, Allows admin user to edit a movie on an autopopulated form
 import { useState } from 'react';
 import { Movie } from '../types/Movie';
 import { updateMovie } from '../api/MoviesAPI';
@@ -12,6 +13,7 @@ interface EditMovieFormProps {
 const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
   const [formData, setFormData] = useState<Movie>({ ...movie });
 
+//When on the form changes, it updates in the database
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -20,12 +22,14 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+//handles the submit button functionality
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await updateMovie(formData.showId, formData);
     onSuccess();
   };
 
+  //returns the edit movie component and inputs
   return (
     <form
       onSubmit={handleSubmit}
@@ -49,6 +53,7 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
               onChange={handleChange}
             />
           </div>
+          {/* drop down for type */}
           <div className="mb-2">
             <label className="form-label">
               <strong>Type</strong>
@@ -127,6 +132,7 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
               value={formData.rating}
               onChange={handleChange}
             >
+              {/* drop down for rating */}
               <option value="">Select Rating</option>
               <option value="PG-13">PG-13</option>
               <option value="TV-MA">TV-MA</option>
