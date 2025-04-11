@@ -2,13 +2,9 @@
 using CineNiche.API.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Cors;
 using CineNiche.API.Services;
-
 
 namespace CineNiche.API.Controllers
 {
@@ -20,6 +16,7 @@ namespace CineNiche.API.Controllers
     {
         private MoviesContext _movieContext;
         private readonly HtmlSanitizerService _sanitizer;
+
         public MovieController(MoviesContext temp, HtmlSanitizerService sanitizer)
         { 
             _movieContext = temp;
@@ -29,7 +26,7 @@ namespace CineNiche.API.Controllers
         [HttpGet("AllMovies")]
         public IActionResult GetMovies(int pageSize = 10, int pageNum = 1, [FromQuery] List<string>? genres = null)
         {
-            // 🍪 Handle cookie (unchanged)
+            // Handle cookie
             string? favGenre = Request.Cookies["favoriteGenre"];
             Console.WriteLine("-------COOKIE-------\n" + favGenre);
 
@@ -41,10 +38,10 @@ namespace CineNiche.API.Controllers
                 Expires = DateTime.Now.AddHours(1)
             });
 
-            // 🌱 Start base query
+            // Start base query
             var query = _movieContext.MoviesTitles.AsQueryable();
 
-            // 🎯 Dynamically apply genre filters
+            // Apply genre filters dynamically
             if (genres != null && genres.Any())
             {
                 var parameter = Expression.Parameter(typeof(MoviesTitle), "m");
@@ -66,7 +63,7 @@ namespace CineNiche.API.Controllers
                 }
             }
 
-            // 📦 Pagination
+            // Pagination
             var totalNumMovies = query.Count();
 
             var results = query
@@ -76,8 +73,6 @@ namespace CineNiche.API.Controllers
                 .Take(pageSize)
                 .ToList();
 
-
-            // 🎁 Return response
             var response = new
             {
                 Movies = results,
@@ -86,7 +81,6 @@ namespace CineNiche.API.Controllers
 
             return Ok(response);
         }
-
 
         [HttpGet("GetMovieGenres")]
         public IActionResult GetMovieGenres()
@@ -104,12 +98,13 @@ namespace CineNiche.API.Controllers
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "PRAGMA table_info(movies_titles);";
+                command.CommandText = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'movies_titles';";
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var columnName = reader.GetString(1);
+                        var columnName = reader.GetString(0);
 
                         if (!string.IsNullOrEmpty(columnName) &&
                             char.IsUpper(columnName[0]) &&
@@ -124,8 +119,6 @@ namespace CineNiche.API.Controllers
             return Ok(genres);
         }
 
-
-        
         [HttpGet("GetMoviesByGenre/{genre}")]
         public IActionResult GetMoviesByGenre(string genre)
         {
@@ -142,7 +135,7 @@ namespace CineNiche.API.Controllers
 
             var movies = _movieContext.MoviesTitles
                 .Where(m => EF.Property<int?>(m, genre) == 1 || EF.Property<int>(m, genre) == 1)
-                .Take(25) // 👈 LIMIT TO 25 RESULTS
+                .Take(25)
                 .ToList();
 
             var result = movies.Select(movie => new
@@ -167,8 +160,6 @@ namespace CineNiche.API.Controllers
             return Ok(result);
         }
 
-
-
         [HttpGet("SearchMovies")]
         public IActionResult SearchMovies(string query)
         {
@@ -184,12 +175,11 @@ namespace CineNiche.API.Controllers
             return Ok(results);
         }
 
-
         [HttpPost("AddMovie")]
         public IActionResult AddMovie([FromBody] MoviesTitle newMovie)
         {
             var lastNumericId = _movieContext.MoviesTitles
-                .AsEnumerable() // move query to in-memory
+                .AsEnumerable()
                 .Where(m => m.ShowId.StartsWith("s"))
                 .Select(m => m.ShowId.Substring(1))
                 .Where(id => int.TryParse(id, out _))
@@ -199,7 +189,7 @@ namespace CineNiche.API.Controllers
 
             newMovie.ShowId = $"s{lastNumericId + 1}";
 
-            // ✅ Sanitize key fields
+            // Sanitize key fields
             newMovie.Title = _sanitizer.Sanitize(newMovie.Title);
             newMovie.Description = _sanitizer.Sanitize(newMovie.Description);
             newMovie.Director = _sanitizer.Sanitize(newMovie.Director);
@@ -213,7 +203,6 @@ namespace CineNiche.API.Controllers
 
             return Ok(newMovie);
         }
-
 
         [HttpPut("UpdateMovie/{showId}")]
         public IActionResult UpdateMovie(string showId, [FromBody] MoviesTitle updatedMovie)
